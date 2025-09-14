@@ -1,2 +1,60 @@
-.ddev
-web
+# DDEV
+.ddev/
+
+# WordPress core
+web/*
+!web/wp-content/
+
+# Track only our theme
+web/wp-content/themes/*
+!web/wp-content/themes/ead-rio/
+
+# Don't track plugins
+web/wp-content/plugins/*
+!web/wp-content/plugins/index.php
+web/wp-content/mu-plugins/*
+!web/wp-content/mu-plugins/index.php
+
+# Ignore uploads and cache
+web/wp-content/uploads/
+web/wp-content/upgrade/
+web/wp-content/backup-db/
+web/wp-content/backups/
+web/wp-content/cache/
+
+# Ignore language files
+web/wp-content/languages/
+web/wp-content/w3tc-config/
+
+# Environment files
+.env
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Composer
+/vendor/
+composer.lock
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build directories
+/dist/
+/build/
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.swp
+*.swo

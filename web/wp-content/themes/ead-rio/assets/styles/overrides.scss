@@ -1,0 +1,404 @@
+@use 'mixins' as *;
+
+/*
+ * Material Design WP Forms Overrides
+ * High specificity to override plugin styles
+ */
+
+div.wpforms-container.wpforms-container {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  padding: 32px !important;
+  margin: 24px 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+
+  // Material ripple background
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary, #6200ea) 0%,
+      var(--color-secondary, #03dac6) 100%
+    );
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  * {
+    font-family: var(--body-font-family);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  // Field containers
+  div.wpforms-field {
+    margin: 0 0 24px 0;
+    position: relative;
+  }
+
+  // Labels with Material Design typography
+  .wpforms-field-label {
+    font-family: var(--headings-font-family);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 8px;
+    display: block;
+    transition: color 0.2s ease;
+
+    // Required indicator
+    .wpforms-required-label {
+      color: #f44336;
+      margin-left: 2px;
+    }
+  }
+
+  // Input fields with Material Design styling
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='password'],
+  input[type='number'],
+  input[type='date'],
+  select,
+  textarea {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: var(--body-font-family);
+    background: #fafafa;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary, #6200ea);
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(98, 0, 234, 0.15);
+      transform: translateY(-1px);
+    }
+
+    &:hover {
+      border-color: #bdbdbd;
+      background: #ffffff;
+    }
+
+    // Placeholder styling
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.6);
+      font-style: italic;
+    }
+  }
+
+  // Textarea specific
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  // Select dropdown
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 48px;
+  }
+
+  // Custom checkbox and radio styling
+  input[type='checkbox'],
+  input[type='radio'] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-right: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    flex-shrink: 0;
+
+    &:hover {
+      border-color: var(--color-primary, #6200ea);
+      box-shadow: 0 2px 8px rgba(98, 0, 234, 0.1);
+    }
+
+    &:checked {
+      background: var(--color-primary, #6200ea);
+      border-color: var(--color-primary, #6200ea);
+      box-shadow: 0 2px 8px rgba(98, 0, 234, 0.3);
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary, #6200ea);
+      box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.2);
+    }
+  }
+
+  // Radio buttons - make them circular
+  input[type='radio'] {
+    border-radius: 50%;
+
+    &:checked::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  // Choice fields container - enhanced styling
+  .wpforms-field-checkbox,
+  .wpforms-field-radio {
+    .wpforms-field-label-inline {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      background: #fafafa;
+      position: relative;
+      overflow: hidden;
+
+      // Subtle gradient background
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          var(--color-primary, #6200ea) 0%,
+          var(--color-secondary, #03dac6) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      &:hover {
+        background: #ffffff;
+        border-color: rgba(98, 0, 234, 0.2);
+        box-shadow: 0 2px 8px rgba(98, 0, 234, 0.1);
+        transform: translateY(-1px);
+
+        &::before {
+          opacity: 0.02;
+        }
+      }
+
+      // Text styling
+      span {
+        color: rgba(0, 0, 0, 0.87);
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 400;
+        transition: color 0.2s ease;
+      }
+
+      // When checkbox is checked
+      input:checked + span {
+        color: var(--color-primary, #6200ea);
+        font-weight: 500;
+      }
+
+      // Focus state for keyboard navigation
+      &:focus-within {
+        border-color: var(--color-primary, #6200ea);
+        box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1);
+      }
+    }
+  }
+
+  // Inline checkbox layout
+  .wpforms-field-checkbox-inline {
+    ul {
+      display: flex;
+    }
+    .wpforms-field-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .wpforms-field-label-inline {
+        margin-bottom: 0;
+        flex: 0 0 auto;
+        min-width: auto;
+        padding: 8px 12px;
+        border-radius: 20px;
+        background: #f5f5f5;
+        border: 2px solid transparent;
+
+        &:hover {
+          background: #ffffff;
+          border-color: var(--color-primary, #6200ea);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(98, 0, 234, 0.15);
+        }
+
+        // Checked state for inline items
+        input:checked + span {
+          color: white;
+        }
+
+        &:has(input:checked) {
+          background: var(--color-primary, #6200ea);
+          border-color: var(--color-primary, #6200ea);
+          box-shadow: 0 4px 12px rgba(98, 0, 234, 0.3);
+
+          span {
+            color: white !important;
+          }
+
+          input[type='checkbox'] {
+            background: white;
+            border-color: white;
+
+            &::before {
+              color: var(--color-primary, #6200ea);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Submit button with Material Design elevation
+  .wpforms-submit {
+    @include button(var(--color-primary, #6200ea), #ffffff);
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(98, 0, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+
+    // Material ripple effect
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: width 0.3s ease, height 0.3s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    &:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    &:hover {
+      box-shadow: 0 6px 20px rgba(98, 0, 234, 0.4);
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(98, 0, 234, 0.3);
+    }
+  }
+
+  // Error styling
+  .wpforms-error {
+    border-color: #f44336 !important;
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.15) !important;
+  }
+
+  // Error messages
+  .wpforms-field-label-inline {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  // Success state
+  .wpforms-confirmation-container-full {
+    background: linear-gradient(135deg, #4caf50, #81c784);
+    color: white;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+
+    p {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  // Loading state
+  .wpforms-submit-spinner {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: wpforms-spin 1s linear infinite;
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @keyframes wpforms-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

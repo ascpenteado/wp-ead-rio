@@ -1,0 +1,21 @@
+@use 'sass:color';
+
+@mixin button($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+
+  &:hover {
+    // Use filter for CSS custom properties since they can't be manipulated at compile time
+    filter: brightness(0.9);
+  }
+}

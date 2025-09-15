@@ -1,0 +1,25 @@
+/*
+Theme Name: EAD Rio
+Description: Child theme for Hello Elementor
+Version: 1.0.0
+*/
+
+// Use tokens (CSS variables)
+@use 'tokens';
+
+// Use component overrides
+@use 'overrides';
+
+// Theme-specific styles
+body {
+  font-family: var(--body-font-family);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--headings-font-family);
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ead-rio",
+  "version": "1.0.0",
+  "description": "EAD Rio child theme for Hello Elementor",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass assets/styles/main.scss:style.css --style=compressed --source-map",
+    "build:dev": "sass assets/styles/main.scss:style.css --style=expanded --source-map",
+    "build:widgets": "sass widgets:assets/css/widgets --style=compressed --source-map --load-path=assets/styles",
+    "dev": "concurrently \"sass assets/styles/main.scss:style.css widgets:assets/css/widgets --watch --style=expanded --source-map --load-path=assets/styles\" \"browser-sync start --config bs-config.js\"",
+    "serve": "browser-sync start --config bs-config.js",
+    "watch": "sass assets/styles/main.scss:style.css --watch --style=expanded --source-map",
+    "watch:widgets": "sass widgets:assets/css/widgets --watch --style=expanded --source-map --load-path=assets/styles"
+  },
+  "author": "EAD Rio",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.2.1",
+    "sass": "^1.92.1"
+  }
+}

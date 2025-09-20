@@ -3,9 +3,26 @@
 # Exit on any error
 set -e
 
-# Cleanup function to stop DDEV when script is interrupted
-cleanup() {
+# Variable to store npm process ID
+NPM_PID=""
+
+# Cleanup function to stop DDEV and npm when script is interrupted
+cleanup() {,.
     echo ""
+    echo "Shutting down services..."
+
+    # Kill npm process if it's running
+    if [ -n "$NPM_PID" ] && kill -0 "$NPM_PID" 2>/dev/null; then
+        echo "Stopping npm run dev (PID: $NPM_PID)..."
+        kill "$NPM_PID" 2>/dev/null || true
+        wait "$NPM_PID" 2>/dev/null || true
+        echo "npm run dev stopped."
+    else
+        # Fallback: try to kill any npm run dev processes
+        pkill -f "npm run dev" 2>/dev/null || true
+    fi
+
+    # Stop DDEV
     echo "Shutting down DDEV containers..."
     cd web 2>/dev/null || true
     ddev stop 2>/dev/null || true
@@ -40,4 +57,28 @@ else
     echo "DDEV is already running"
 fi
 
+# Always check and start npm run dev if needed (regardless of DDEV startup state)
+if ! pgrep -f "npm run dev" > /dev/null; then
+    echo "Starting npm run dev..."
+    # go to theme folder
+    cd wp-content/themes/ead-rio
+    npm run dev &
+    NPM_PID=$!
+    echo "npm run dev started with PID: $NPM_PID"
+else
+    echo "npm run dev is already running."
+    # Get the existing PID for cleanup purposes
+    NPM_PID=$(pgrep -f "npm run dev" | head -1)
+    echo "Found existing npm run dev process with PID: $NPM_PID"
+fi
 
+# Keep the script running to handle Ctrl+C properly
+echo ""
+echo "Services are running. Press Ctrl+C to stop all services and exit."
+echo "DDEV site: https://wp-ead-rio.ddev.site"
+echo ""
+
+# Wait indefinitely until interrupted
+while true; do
+    sleep 1
+done

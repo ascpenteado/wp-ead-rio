@@ -7,7 +7,7 @@ set -e
 NPM_PID=""
 
 # Cleanup function to stop DDEV and npm when script is interrupted
-cleanup() {,.
+cleanup() {
     echo ""
     echo "Shutting down services..."
 

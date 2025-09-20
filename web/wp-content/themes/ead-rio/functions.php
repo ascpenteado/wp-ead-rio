@@ -10,6 +10,14 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Include component loader for automatic style loading
+ */
+function ead_rio_load_component_loader() {
+    require_once get_stylesheet_directory() . '/includes/component-loader.php';
+}
+add_action('after_setup_theme', 'ead_rio_load_component_loader');
+
+/**
  * Enqueue scripts and styles
  */
 function ead_rio_enqueue_styles() {

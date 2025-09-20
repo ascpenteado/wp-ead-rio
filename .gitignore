@@ -9,6 +9,10 @@ web/*
 web/wp-content/themes/*
 !web/wp-content/themes/ead-rio/
 
+# Ignore compiled CSS in theme
+web/wp-content/themes/ead-rio/style.css
+web/wp-content/themes/ead-rio/style.css.map
+
 # Don't track plugins
 web/wp-content/plugins/*
 !web/wp-content/plugins/index.php
@@ -52,9 +56,3 @@ yarn-error.log
 # Build directories
 /dist/
 /build/
-
-# Ignore IDE files
-.idea/
-.vscode/
-*.swp
-*.swo

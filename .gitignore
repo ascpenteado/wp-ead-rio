@@ -13,6 +13,9 @@ web/wp-content/themes/*
 web/wp-content/themes/ead-rio/style.css
 web/wp-content/themes/ead-rio/style.css.map
 
+# Ignore compiled styles directory
+web/wp-content/themes/ead-rio/assets/styles/
+
 # Don't track plugins
 web/wp-content/plugins/*
 !web/wp-content/plugins/index.php

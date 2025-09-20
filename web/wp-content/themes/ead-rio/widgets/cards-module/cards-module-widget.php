@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 class Cards_Module_Widget extends \Elementor\Widget_Base {
 
     public function get_name() {
-        return 'cards_module';
+        return 'listagem_cursos';
     }
 
     public function get_style_depends() {
@@ -15,7 +15,7 @@ class Cards_Module_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_title() {
-        return __('Cards Module', 'ead-rio');
+        return __('Listagem de Cursos', 'ead-rio');
     }
 
     public function get_icon() {
@@ -27,51 +27,22 @@ class Cards_Module_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_keywords() {
-        return ['cards', 'posts', 'grid', 'list'];
+        return ['cursos', 'courses', 'grid', 'list'];
     }
 
     protected function register_controls() {
         $this->start_controls_section(
             'content_section',
             [
-                'label' => __('Content', 'ead-rio'),
+                'label' => __('Configurações dos Cursos', 'ead-rio'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-            ]
-        );
-
-        $post_types = get_post_types(['public' => true], 'objects');
-        $post_type_options = [];
-        foreach ($post_types as $post_type) {
-            $post_type_options[$post_type->name] = $post_type->label;
-        }
-
-        $this->add_control(
-            'post_type',
-            [
-                'label' => __('Post Type', 'ead-rio'),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'default' => 'post',
-                'options' => $post_type_options,
-            ]
-        );
-
-        $this->add_control(
-            'category',
-            [
-                'label' => __('Category', 'ead-rio'),
-                'type' => \Elementor\Controls_Manager::SELECT2,
-                'multiple' => true,
-                'options' => $this->get_categories_options(),
-                'condition' => [
-                    'post_type' => 'post',
-                ],
             ]
         );
 
         $this->add_control(
             'posts_per_page',
             [
-                'label' => __('Number of Posts', 'ead-rio'),
+                'label' => __('Número de Cursos', 'ead-rio'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 6,
                 'min' => 1,
@@ -82,7 +53,7 @@ class Cards_Module_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'columns',
             [
-                'label' => __('Columns', 'ead-rio'),
+                'label' => __('Colunas', 'ead-rio'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'default' => '3',
                 'options' => [
@@ -95,24 +66,48 @@ class Cards_Module_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
-            'show_excerpt',
+            'show_short_description',
             [
-                'label' => __('Show Excerpt', 'ead-rio'),
+                'label' => __('Mostrar Descrição Curta', 'ead-rio'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'ead-rio'),
-                'label_off' => __('No', 'ead-rio'),
+                'label_on' => __('Sim', 'ead-rio'),
+                'label_off' => __('Não', 'ead-rio'),
                 'return_value' => 'yes',
                 'default' => 'yes',
             ]
         );
 
         $this->add_control(
-            'show_date',
+            'show_instituicao',
             [
-                'label' => __('Show Date', 'ead-rio'),
+                'label' => __('Mostrar Instituição', 'ead-rio'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'ead-rio'),
-                'label_off' => __('No', 'ead-rio'),
+                'label_on' => __('Sim', 'ead-rio'),
+                'label_off' => __('Não', 'ead-rio'),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'show_course_area',
+            [
+                'label' => __('Mostrar Área do Curso', 'ead-rio'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Sim', 'ead-rio'),
+                'label_off' => __('Não', 'ead-rio'),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'show_course_degree',
+            [
+                'label' => __('Mostrar Grau do Curso', 'ead-rio'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Sim', 'ead-rio'),
+                'label_off' => __('Não', 'ead-rio'),
                 'return_value' => 'yes',
                 'default' => 'yes',
             ]
@@ -206,55 +201,34 @@ class Cards_Module_Widget extends \Elementor\Widget_Base {
         $settings = $this->get_settings_for_display();
 
         $query_args = [
-            'post_type' => $settings['post_type'],
+            'post_type' => 'curso',
             'posts_per_page' => $settings['posts_per_page'],
             'post_status' => 'publish',
         ];
 
-        if (!empty($settings['category']) && $settings['post_type'] === 'post') {
-            $query_args['cat'] = implode(',', $settings['category']);
-        }
-
         $posts = new WP_Query($query_args);
 
         if (!$posts->have_posts()) {
-            echo '<p>' . __('No posts found.', 'ead-rio') . '</p>';
+            echo '<p>' . __('Nenhum curso encontrado.', 'ead-rio') . '</p>';
             return;
         }
+
+        // Include the course card component
+        require_once get_stylesheet_directory() . '/components/molecules/course-card.php';
 
         $columns = $settings['columns'];
         ?>
         <div class="cards-module-wrapper">
             <div class="cards-module-grid cards-columns-<?php echo esc_attr($columns); ?>">
-                <?php while ($posts->have_posts()) : $posts->the_post(); ?>
-                    <div class="card-item">
-                        <?php if (has_post_thumbnail()) : ?>
-                            <div class="card-image">
-                                <a href="<?php the_permalink(); ?>">
-                                    <?php the_post_thumbnail('medium'); ?>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="card-content">
-                            <h3 class="card-title">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                            </h3>
-
-                            <?php if ('yes' === $settings['show_date']) : ?>
-                                <div class="card-date">
-                                    <?php echo get_the_date(); ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if ('yes' === $settings['show_excerpt']) : ?>
-                                <div class="card-excerpt">
-                                    <?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
+                <?php while ($posts->have_posts()) : $posts->the_post();
+                    render_course_card([
+                        'post_id' => get_the_ID(),
+                        'show_short_description' => 'yes' === $settings['show_short_description'],
+                        'show_instituicao' => 'yes' === $settings['show_instituicao'],
+                        'show_course_area' => 'yes' === $settings['show_course_area'],
+                        'show_course_degree' => 'yes' === $settings['show_course_degree'],
+                    ]);
+                endwhile; ?>
             </div>
         </div>
         <?php

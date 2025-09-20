@@ -1,11 +1,16 @@
 @use 'mixins' as *;
 
 /*
- * Material Design WP Forms Overrides
- * High specificity to override plugin styles
+ * WPForms Complete Reset & Material Design Override
+ * Resets all WPForms styles and applies consistent Material Design theming
  */
 
 div.wpforms-container.wpforms-container {
+  // Complete reset of WPForms defaults
+  all: unset;
+  display: block;
+
+  // Apply our custom Material Design styling
   background: #ffffff !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
@@ -13,6 +18,7 @@ div.wpforms-container.wpforms-container {
   margin: 24px 0 !important;
   position: relative !important;
   overflow: hidden !important;
+  font-family: var(--body-font-family);
 
   // Material ripple background
   &::before {
@@ -31,6 +37,7 @@ div.wpforms-container.wpforms-container {
     pointer-events: none;
   }
 
+  // Reset all child elements
   * {
     font-family: var(--body-font-family);
     margin: 0;
@@ -38,10 +45,24 @@ div.wpforms-container.wpforms-container {
     box-sizing: border-box;
   }
 
-  ul {
+  // Reset lists
+  ul,
+  ol {
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  // Reset fieldsets
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  legend {
+    display: none;
   }
 
   // Field containers
@@ -101,7 +122,6 @@ div.wpforms-container.wpforms-container {
       background: #ffffff;
     }
 
-    // Placeholder styling
     &::placeholder {
       color: rgba(0, 0, 0, 0.6);
       font-style: italic;
@@ -186,12 +206,28 @@ div.wpforms-container.wpforms-container {
     }
   }
 
-  // Choice fields container - enhanced styling
+  // Choice fields - Reset all default styling first
   .wpforms-field-checkbox,
   .wpforms-field-radio {
+    // Reset fieldset completely
+    fieldset {
+      border: none !important;
+      outline: none !important;
+      padding: 0;
+      margin: 0;
+      min-width: 0;
+    }
+
+    // Reset choice containers
+    .wpforms-field-choices {
+      margin: 0;
+      padding: 0;
+    }
+
+    // Base label styling for all choice fields
     .wpforms-field-label-inline {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       margin-bottom: 16px;
       cursor: pointer;
       padding: 12px 16px;
@@ -202,33 +238,11 @@ div.wpforms-container.wpforms-container {
       position: relative;
       overflow: hidden;
 
-      // Subtle gradient background
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-          135deg,
-          var(--color-primary, #6200ea) 0%,
-          var(--color-secondary, #03dac6) 100%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
-
       &:hover {
         background: #ffffff;
         border-color: rgba(98, 0, 234, 0.2);
         box-shadow: 0 2px 8px rgba(98, 0, 234, 0.1);
         transform: translateY(-1px);
-
-        &::before {
-          opacity: 0.02;
-        }
       }
 
       // Text styling
@@ -240,7 +254,7 @@ div.wpforms-container.wpforms-container {
         transition: color 0.2s ease;
       }
 
-      // When checkbox is checked
+      // When option is checked
       input:checked + span {
         color: var(--color-primary, #6200ea);
         font-weight: 500;
@@ -254,66 +268,15 @@ div.wpforms-container.wpforms-container {
     }
   }
 
-  // Inline checkbox layout
-  .wpforms-field-checkbox-inline {
-    ul {
-      display: flex;
-    }
-    .wpforms-field-choices {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-
-      .wpforms-field-label-inline {
-        margin-bottom: 0;
-        flex: 0 0 auto;
-        min-width: auto;
-        padding: 8px 12px;
-        border-radius: 20px;
-        background: #f5f5f5;
-        border: 2px solid transparent;
-
-        &:hover {
-          background: #ffffff;
-          border-color: var(--color-primary, #6200ea);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(98, 0, 234, 0.15);
-        }
-
-        // Checked state for inline items
-        input:checked + span {
-          color: white;
-        }
-
-        &:has(input:checked) {
-          background: var(--color-primary, #6200ea);
-          border-color: var(--color-primary, #6200ea);
-          box-shadow: 0 4px 12px rgba(98, 0, 234, 0.3);
-
-          span {
-            color: white !important;
-          }
-
-          input[type='checkbox'] {
-            background: white;
-            border-color: white;
-
-            &::before {
-              color: var(--color-primary, #6200ea);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // Specific styling for wpforms-list-inline checkbox fields
+  // Specific styling for inline checkbox layouts (wpforms-list-inline)
   .wpforms-field-checkbox.wpforms-list-inline {
+    // Ensure fieldset has no border
     fieldset {
       border: none !important;
       outline: none !important;
     }
 
+    // Make list items display inline
     ul {
       display: flex !important;
       flex-wrap: wrap !important;
@@ -332,6 +295,7 @@ div.wpforms-container.wpforms-container {
       width: auto !important;
     }
 
+    // Override label styling for inline layout
     .wpforms-field-label-inline {
       display: flex;
       align-items: center;
@@ -352,6 +316,7 @@ div.wpforms-container.wpforms-container {
         margin-right: 8px !important;
       }
 
+      // Checked state for inline items
       &:has(input:checked) {
         background: var(--color-primary, #6200ea);
         border-color: var(--color-primary, #6200ea);
@@ -386,6 +351,8 @@ div.wpforms-container.wpforms-container {
     position: relative;
     overflow: hidden;
     min-width: 140px;
+    border: none;
+    cursor: pointer;
 
     // Material ripple effect
     &::before {
@@ -421,11 +388,10 @@ div.wpforms-container.wpforms-container {
   // Error styling
   .wpforms-error {
     border-color: #f44336 !important;
-    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.15) !important;
   }
 
   // Error messages
-  .wpforms-field-label-inline {
+  .wpforms-field-error {
     color: #f44336;
     font-size: 12px;
     margin-top: 4px;

@@ -88,19 +88,30 @@ add_action('wp_enqueue_scripts', 'ead_rio_enqueue_styles');
  * Enqueue scripts
  */
 function ead_rio_enqueue_scripts() {
-    // Enqueue main theme script if it exists
-    $theme_js_path = get_template_directory() . '/assets/js/theme.js';
+    // Enqueue main theme script if it exists (use stylesheet directory for child themes)
+    $theme_js_path = get_stylesheet_directory() . '/assets/js/theme.js';
     if (file_exists($theme_js_path)) {
         wp_enqueue_script(
             'ead-rio-theme',
-            get_template_directory_uri() . '/assets/js/theme.js',
-            ['jquery'],
+            get_stylesheet_directory_uri() . '/assets/js/theme.js',
+            [],
             wp_get_theme()->get('Version'),
             true
         );
     }
 }
+
+/**
+ * Add module type to theme script
+ */
+function ead_rio_add_module_type($tag, $handle) {
+    if ('ead-rio-theme' === $handle) {
+        return str_replace('<script ', '<script type="module" ', $tag);
+    }
+    return $tag;
+}
 add_action('wp_enqueue_scripts', 'ead_rio_enqueue_scripts');
+add_filter('script_loader_tag', 'ead_rio_add_module_type', 10, 2);
 
 /**
  * Register widget styles

@@ -4,19 +4,29 @@
   "description": "EAD Rio child theme for Hello Elementor",
   "main": "index.js",
   "scripts": {
-    "build": "sass assets/styles/main.scss:style.css --style=compressed --source-map",
-    "build:dev": "sass assets/styles/main.scss:style.css --style=expanded --source-map",
+    "build": "npm run build:ts && npm run build:css",
+    "build:css": "sass assets/styles/main.scss:style.css --style=compressed --source-map",
+    "build:css:dev": "sass assets/styles/main.scss:style.css --style=expanded --source-map",
+    "build:ts": "tsc",
+    "build:ts:dev": "tsc --sourceMap",
     "build:widgets": "sass widgets:assets/css/widgets --style=compressed --source-map --load-path=assets/styles",
-    "dev": "concurrently \"sass assets/styles/main.scss:style.css widgets:assets/css/widgets --watch --style=expanded --source-map --load-path=assets/styles\" \"browser-sync start --config bs-config.js\"",
+    "dev": "concurrently \"npm run watch:ts\" \"npm run watch:css\" \"browser-sync start --config bs-config.js\"",
     "serve": "browser-sync start --config bs-config.js",
-    "watch": "sass assets/styles/main.scss:style.css --watch --style=expanded --source-map",
-    "watch:widgets": "sass widgets:assets/css/widgets --watch --style=expanded --source-map --load-path=assets/styles"
+    "watch": "concurrently \"npm run watch:ts\" \"npm run watch:css\"",
+    "watch:css": "sass assets/styles/main.scss:style.css widgets:assets/css/widgets --watch --style=expanded --source-map --load-path=assets/styles",
+    "watch:ts": "tsc --watch",
+    "watch:widgets": "sass widgets:assets/css/widgets --watch --style=expanded --source-map --load-path=assets/styles",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf assets/js/*.js assets/js/*.d.ts assets/js/*.js.map"
   },
   "author": "EAD Rio",
   "license": "ISC",
   "devDependencies": {
+    "@types/jquery": "^3.5.33",
+    "@types/node": "^24.5.2",
     "browser-sync": "^3.0.4",
     "concurrently": "^9.2.1",
-    "sass": "^1.92.1"
+    "sass": "^1.92.1",
+    "typescript": "^5.9.2"
   }
 }

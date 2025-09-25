@@ -9,8 +9,8 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./assets/js",
-    "rootDir": "./assets/ts",
+    "outDir": "./dist/js",
+    "rootDir": "./",
     "removeComments": false,
     "strict": true,
     "noUnusedLocals": true,
@@ -33,13 +33,13 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "assets/ts/**/*",
-    "widgets/**/*.ts",
+    "src/**/*.ts",
     "components/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "assets/js/**/*",
+    "dist/**/*",
+    "assets/**/*",
     "**/*.d.ts"
   ]
 }

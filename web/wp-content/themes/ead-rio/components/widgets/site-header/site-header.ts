@@ -3,7 +3,7 @@
  * Modern TypeScript version of the site header functionality
  */
 
-import { BaseComponent, ComponentOptions } from '../components/base-component';
+import { BaseComponent, ComponentOptions } from '../../../src/components/base-component';
 import {
   querySelector,
   querySelectorAll,
@@ -12,8 +12,8 @@ import {
   removeClass,
   debounce,
   throttle
-} from '../utils/dom-utils';
-import { SELECTORS, CSS_CLASSES, isBreakpoint } from '../utils/theme-config';
+} from '../../../src/utils/dom-utils';
+import { SELECTORS, CSS_CLASSES, isBreakpoint } from '../../../src/utils/theme-config';
 
 interface SiteHeaderOptions extends ComponentOptions {
   mobileBreakpoint?: number;

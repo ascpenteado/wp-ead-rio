@@ -66,13 +66,24 @@ add_action('after_setup_theme', 'ead_rio_load_component_loader');
  * Enqueue scripts and styles
  */
 function ead_rio_enqueue_styles() {
-    // Enqueue main theme styles
-    wp_enqueue_style(
-        'ead-rio-style',
-        get_stylesheet_uri(),
-        [],
-        wp_get_theme()->get('Version')
-    );
+    // Enqueue main theme styles from dist folder
+    $main_css_path = get_stylesheet_directory() . '/dist/css/style.css';
+    if (file_exists($main_css_path)) {
+        wp_enqueue_style(
+            'ead-rio-style',
+            get_stylesheet_directory_uri() . '/dist/css/style.css',
+            [],
+            wp_get_theme()->get('Version')
+        );
+    } else {
+        // Fallback to root style.css if dist version doesn't exist
+        wp_enqueue_style(
+            'ead-rio-style',
+            get_stylesheet_uri(),
+            [],
+            wp_get_theme()->get('Version')
+        );
+    }
 
     // Enqueue Google Fonts
     wp_enqueue_style(
@@ -88,12 +99,12 @@ add_action('wp_enqueue_scripts', 'ead_rio_enqueue_styles');
  * Enqueue scripts
  */
 function ead_rio_enqueue_scripts() {
-    // Enqueue main theme script if it exists (use stylesheet directory for child themes)
-    $theme_js_path = get_stylesheet_directory() . '/assets/js/theme.js';
+    // Enqueue main theme script from dist folder if it exists
+    $theme_js_path = get_stylesheet_directory() . '/dist/js/src/theme.js';
     if (file_exists($theme_js_path)) {
         wp_enqueue_script(
             'ead-rio-theme',
-            get_stylesheet_directory_uri() . '/assets/js/theme.js',
+            get_stylesheet_directory_uri() . '/dist/js/src/theme.js',
             [],
             wp_get_theme()->get('Version'),
             true
@@ -119,7 +130,7 @@ add_filter('script_loader_tag', 'ead_rio_add_module_type', 10, 2);
 function ead_rio_register_widget_styles() {
     wp_register_style(
         'cards-module-widget',
-        get_template_directory_uri() . '/assets/css/widgets/cards-module/cards-module.css',
+        get_template_directory_uri() . '/dist/css/components/widgets/cards-module/cards-module.css',
         [],
         wp_get_theme()->get('Version')
     );
@@ -130,7 +141,7 @@ add_action('wp_enqueue_scripts', 'ead_rio_register_widget_styles');
  * Register Custom Elementor Widgets (if Elementor is active)
  */
 function ead_rio_register_elementor_widgets($widgets_manager) {
-    $cards_widget_path = get_template_directory() . '/widgets/cards-module/cards-module-widget.php';
+    $cards_widget_path = get_template_directory() . '/components/widgets/cards-module/cards-module-widget.php';
     if (file_exists($cards_widget_path)) {
         require_once($cards_widget_path);
         if (class_exists('Cards_Module_Widget')) {

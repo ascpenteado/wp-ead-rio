@@ -4,7 +4,7 @@
  */
 
 import { ready } from './utils/dom-utils';
-import { initSiteHeaderWidgets } from './widgets/site-header';
+import '../components/widgets/site-header/site-header';
 
 // Import type definitions
 import './types/wordpress';
@@ -44,9 +44,7 @@ class EadRioTheme {
    * Initialize theme components
    */
   private initComponents(): void {
-    // Initialize site header widgets
-    initSiteHeaderWidgets();
-
+    // Components are auto-initialized via their respective imports
     // Add more component initializations here as needed
   }
 

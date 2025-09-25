@@ -1,8 +1,8 @@
 module.exports = {
   proxy: "localhost:8000", // Change this to your local WordPress URL
   files: [
-    "style.css",
-    "assets/css/**/*.css",
+    "dist/css/**/*.css",
+    "dist/js/**/*.js",
     "**/*.php"
   ],
   watchEvents: ["change"],

@@ -2,7 +2,10 @@ node_modules/
 *.css.map
 assets/css/
 
-# Compiled TypeScript files
+# Compiled assets
+dist/
+
+# Legacy compiled TypeScript files
 assets/js/**/*.js
 assets/js/**/*.js.map
 assets/js/**/*.d.ts

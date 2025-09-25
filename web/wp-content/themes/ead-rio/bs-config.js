@@ -1,5 +1,5 @@
 module.exports = {
-  proxy: "localhost:8000", // Change this to your local WordPress URL
+  proxy: "https://wp-ead-rio.ddev.site", // DDEV WordPress site URL
   files: [
     "dist/css/**/*.css",
     "dist/js/**/*.js",

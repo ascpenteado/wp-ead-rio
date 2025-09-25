@@ -134,6 +134,7 @@ function ead_rio_register_widget_styles() {
         [],
         wp_get_theme()->get('Version')
     );
+
 }
 add_action('wp_enqueue_scripts', 'ead_rio_register_widget_styles');
 
@@ -141,13 +142,14 @@ add_action('wp_enqueue_scripts', 'ead_rio_register_widget_styles');
  * Register Custom Elementor Widgets (if Elementor is active)
  */
 function ead_rio_register_elementor_widgets($widgets_manager) {
-    $cards_widget_path = get_template_directory() . '/components/widgets/cards-module/cards-module-widget.php';
+    $cards_widget_path = get_stylesheet_directory() . '/components/widgets/cards-module/cards-module-widget.php';
     if (file_exists($cards_widget_path)) {
         require_once($cards_widget_path);
         if (class_exists('Cards_Module_Widget')) {
             $widgets_manager->register(new \Cards_Module_Widget());
         }
     }
+
 }
 
 // Only register Elementor widgets if Elementor is active

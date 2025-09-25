@@ -61,7 +61,7 @@ abstract class Base_Widget extends \Elementor\Widget_Base {
      * Get widget categories
      */
     public function get_categories() {
-        return $this->widget_config['categories'] ?? ['general'];
+        return isset($this->widget_config['category']) ? [$this->widget_config['category']] : ['general'];
     }
 
     /**

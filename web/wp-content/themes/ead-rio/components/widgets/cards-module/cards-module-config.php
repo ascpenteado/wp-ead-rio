@@ -9,7 +9,7 @@ return [
     'title' => __('Listagem de Cursos', 'ead-rio'),
     'description' => __('Display courses in a beautiful card layout with customizable options', 'ead-rio'),
     'icon' => 'eicon-posts-grid',
-    'category' => 'ead-rio-content',
+    'category' => 'general',
     'keywords' => ['cursos', 'courses', 'grid', 'list', 'ead rio'],
     'version' => '1.0.0',
     'dependencies' => [

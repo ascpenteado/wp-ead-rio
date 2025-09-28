@@ -6,7 +6,6 @@
  *
  * @package EAD_Rio
  */
-
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -23,43 +22,57 @@
 <div id="page" class="site">
     <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'ead-rio'); ?></a>
 
-    <header id="masthead" class="header">
+    <header class="header">
         <div class="header__container">
             <div class="header__branding">
                 <?php the_custom_logo(); ?>
             </div>
 
+            <?php 
             
-            <nav id="site-navigation" class="header__navigation">
-                <?php
-                wp_nav_menu(
-                    array(
-                        'theme_location' => 'primary',
-                        'menu_id'        => 'primary-menu',
-                        'container'      => false,
-                        'menu_class'     => 'header__nav-menu',
-                    )
-                );
-                ?>
-            </nav>
 
-            <div class="header__menu-toggle-wrapper">
-                <?php
-            // Render CTA button (auto-loaded globally)
-            rio_button([
-                'text' => 'Matricule-se',
-                'url' => '#quero-bolsa',
-                'variant' => 'primary',
-                'size' => 'medium',
-                'classes' => 'header__cta-button'
-            ]);
+            if(is_singular('curso')):
             ?>
+            <?php rio_button([
+                'text' => 'Voltar',
+                'url' => '/',
+                'variant' => 'text',
+                'size' => 'small',
+                'classes' => 'header__go-back-button'
+            ]); 
+            ?>
+            <?php else: ?>
+                <nav id="site-navigation" class="header__navigation">
+                    <?php
+                    wp_nav_menu(
+                        array(
+                            'theme_location' => 'primary',
+                            'menu_id'        => 'primary-menu',
+                            'container'      => false,
+                            'menu_class'     => 'header__nav-menu',
+                        )
+                    );
+                    ?>
+                </nav>
+
+                <div class="header__menu-toggle-wrapper">
+                    <?php
+                // Render CTA button (auto-loaded globally)
+                rio_button([
+                    'text' => 'Matricule-se',
+                    'url' => '#quero-bolsa',
+                    'variant' => 'primary',
+                    'size' => 'medium',
+                    'classes' => 'header__cta-button'
+                ]);
+                ?>
 
                 <button class="header__menu-toggle" aria-controls="primary-menu" aria-expanded="false">
                     <span class="header__menu-toggle-text"><?php esc_html_e('Primary Menu', 'ead-rio'); ?></span>
                 </button>
             
-            </div>
+                </div>
+            <?php endif; ?>
 
         </div>
     </header>

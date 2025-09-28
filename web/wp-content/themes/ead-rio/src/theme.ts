@@ -4,10 +4,6 @@
  */
 
 import { ready } from './utils/dom-utils';
-import '../components/widgets/site-header/site-header';
-
-// Import type definitions
-import './types/wordpress';
 
 /**
  * Theme initialization
@@ -64,7 +60,7 @@ class EadRioTheme {
   private initSmoothScrolling(): void {
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
-    anchorLinks.forEach(link => {
+    anchorLinks.forEach((link) => {
       link.addEventListener('click', (event) => {
         const href = (link as HTMLAnchorElement).getAttribute('href');
 
@@ -77,7 +73,7 @@ class EadRioTheme {
 
             window.scrollTo({
               top: offsetTop,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           }
         }

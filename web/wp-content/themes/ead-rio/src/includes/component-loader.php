@@ -129,18 +129,32 @@ class Component_Loader {
     }
 
     /**
-     * Compile SCSS to CSS (basic implementation)
-     * For production, consider using a proper SCSS compiler
+     * Compile SCSS to CSS or use pre-compiled CSS
      *
      * @param string $file_path Path to SCSS file
-     * @return string Compiled CSS
+     * @return string CSS content
      */
     private function compile_scss_to_css($file_path) {
-        $content = file_get_contents($file_path);
-
+        // First, try to use pre-compiled CSS from build system
         if (pathinfo($file_path, PATHINFO_EXTENSION) === 'scss') {
-            // Basic SCSS to CSS conversion
-            // For production, use proper SCSS compiler like ScssPhp
+            // Convert SCSS path to CSS path in dist directory
+            $relative_path = str_replace(get_template_directory() . '/', '', $file_path);
+            // Remove the 'src/' prefix from the relative path
+            $css_relative_path = str_replace('src/', '', $relative_path);
+            $css_path = get_template_directory() . '/dist/css/' . str_replace('.scss', '.css', $css_relative_path);
+
+            if (file_exists($css_path)) {
+                $content = file_get_contents($css_path);
+                return $content;
+            }
+        }
+
+        // Fallback: read the original file (CSS or SCSS)
+        $content = file_get_contents($file_path);
+        error_log("Using fallback SCSS compilation for: " . $file_path);
+
+        // Only attempt basic SCSS conversion if it's SCSS and no pre-compiled version exists
+        if (pathinfo($file_path, PATHINFO_EXTENSION) === 'scss') {
             $content = $this->basic_scss_conversion($content);
         }
 
@@ -158,31 +172,144 @@ class Component_Loader {
         // Remove SCSS comments
         $scss = preg_replace('/\/\/.*$/m', '', $scss);
 
-        // Handle nested selectors (very basic implementation)
-        $scss = $this->flatten_nested_selectors($scss);
-
-        // Handle variables (basic)
+        // Handle variables first (before nested selectors)
         $scss = $this->process_variables($scss);
 
+        // Handle nested selectors
+        $scss = $this->flatten_nested_selectors($scss);
+
         return $scss;
     }
 
     /**
-     * Flatten nested selectors (basic implementation)
+     * Flatten nested selectors (improved implementation)
      */
     private function flatten_nested_selectors($scss) {
-        // This is a very basic implementation
-        // For production, use a proper SCSS parser
-        return $scss;
+        $lines = explode("\n", $scss);
+        $output = [];
+        $stack = [];
+        $brace_stack = []; // Track opening braces
+        $in_selector = false;
+        $current_selector = '';
+        $current_rules = [];
+
+        foreach ($lines as $line) {
+            $trimmed = trim($line);
+
+            // Skip empty lines and comments
+            if (empty($trimmed) || strpos($trimmed, '//') === 0) {
+                if (!$in_selector) {
+                    $output[] = $line;
+                }
+                continue;
+            }
+
+            // Check if this is a selector (contains { but not a property, or @media)
+            if ((strpos($trimmed, '{') !== false && strpos($trimmed, ':') === false) || strpos($trimmed, '@media') === 0) {
+                // Close previous selector if open
+                if ($in_selector && !empty($current_rules)) {
+                    $output[] = $current_selector . ' {';
+                    $output = array_merge($output, $current_rules);
+                    $output[] = '}';
+                    $output[] = '';
+                    $current_rules = [];
+                }
+
+                $selector = str_replace('{', '', $trimmed);
+
+                // Handle @media queries - keep them as-is
+                if (strpos($trimmed, '@media') === 0) {
+                    $output[] = $trimmed . ' {';
+                    $stack[] = trim($selector);
+                    $brace_stack[] = 'media';
+                    $in_selector = false;
+                    continue;
+                }
+
+                // Handle nested selectors with &
+                if (strpos($selector, '&') !== false) {
+                    $parent = end($stack);
+                    if ($parent && strpos($parent, '@media') === false) {
+                        $selector = str_replace('&', $parent, $selector);
+                    }
+                } else if (!empty($stack)) {
+                    // Child selector (only if parent is not @media)
+                    $parent = end($stack);
+                    if ($parent && strpos($parent, '@media') === false) {
+                        $selector = $parent . ' ' . $selector;
+                    }
+                }
+
+                $stack[] = trim($selector);
+                $brace_stack[] = 'selector';
+                $current_selector = trim($selector);
+                $in_selector = true;
+                continue;
+            }
+
+            // Check for closing brace
+            if (strpos($trimmed, '}') !== false) {
+                if ($in_selector && !empty($current_rules)) {
+                    $output[] = $current_selector . ' {';
+                    $output = array_merge($output, $current_rules);
+                    $output[] = '}';
+                    $current_rules = [];
+                }
+
+                // Close the brace
+                $output[] = '}';
+
+                // Pop from stacks
+                array_pop($stack);
+                $brace_type = array_pop($brace_stack);
+
+                if ($brace_type === 'selector') {
+                    $in_selector = false;
+                }
+
+                $output[] = '';
+                continue;
+            }
+
+            // CSS property
+            if ($in_selector && strpos($trimmed, ':') !== false) {
+                $current_rules[] = '  ' . $trimmed;
+            } else if (!$in_selector) {
+                // Top-level CSS or CSS inside @media
+                $output[] = $line;
+            }
+        }
+
+        // Close any remaining open selector
+        if ($in_selector && !empty($current_rules)) {
+            $output[] = $current_selector . ' {';
+            $output = array_merge($output, $current_rules);
+            $output[] = '}';
+        }
+
+        // Close any remaining open braces
+        while (!empty($brace_stack)) {
+            $output[] = '}';
+            array_pop($brace_stack);
+        }
+
+        return implode("\n", $output);
     }
 
     /**
-     * Process SCSS variables (basic implementation)
+     * Process SCSS variables (improved implementation)
      */
     private function process_variables($scss) {
-        // Extract variables
-        preg_match_all('/\$([a-zA-Z0-9_-]+):\s*([^;]+);/', $scss, $matches);
-        $variables = array_combine($matches[1], $matches[2]);
+        // Extract variables more carefully
+        $variables = [];
+        $lines = explode("\n", $scss);
+
+        foreach ($lines as $line) {
+            $trimmed = trim($line);
+            if (preg_match('/^\$([a-zA-Z0-9_-]+):\s*([^;]+);/', $trimmed, $matches)) {
+                $variables[$matches[1]] = trim($matches[2]);
+            }
+        }
 
         // Replace variable usage
         foreach ($variables as $name => $value) {
@@ -190,7 +317,7 @@ class Component_Loader {
         }
 
         // Remove variable declarations
-        $scss = preg_replace('/\$[a-zA-Z0-9_-]+:\s*[^;]+;/', '', $scss);
+        $scss = preg_replace('/^\s*\$[a-zA-Z0-9_-]+:\s*[^;]+;\s*$/m', '', $scss);
 
         return $scss;
     }

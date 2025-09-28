@@ -75,7 +75,7 @@ class EAD_Rio_Elementor_Widget_Manager {
      * Load widget configurations
      */
     private function load_widget_configs() {
-        $widgets_dir = get_template_directory() . '/widgets/';
+        $widgets_dir = get_template_directory() . '/src/components/widgets/';
 
         if (!is_dir($widgets_dir)) {
             return;
@@ -109,7 +109,7 @@ class EAD_Rio_Elementor_Widget_Manager {
      * Register a single widget
      */
     private function register_single_widget($widgets_manager, $widget_name, $config) {
-        $widget_file = get_template_directory() . '/widgets/' . $widget_name . '/' . $widget_name . '-widget.php';
+        $widget_file = get_template_directory() . '/src/components/widgets/' . $widget_name . '/' . $widget_name . '-widget.php';
 
         if (!file_exists($widget_file)) {
             return;

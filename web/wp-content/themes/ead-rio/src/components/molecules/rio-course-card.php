@@ -4,16 +4,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Auto-register component styles
+// Auto-register component styles when component loader is available
 if (!function_exists('get_component_loader')) {
     require_once get_stylesheet_directory() . '/src/includes/component-loader.php';
 }
-
-// Register this component's styles
-register_component('rio-course-card', [
-    'style_path' => 'src/components/molecules/rio-course-card.scss',
-    'dependencies' => []
-]);
 
 /**
  * Course Card Component
@@ -27,6 +21,12 @@ register_component('rio-course-card', [
  * }
  */
 function rio_course_card($args = []) {
+    // Register this component's styles
+    register_component('rio-course-card', [
+        'style_path' => 'src/components/molecules/rio-course-card.scss',
+        'dependencies' => []
+    ]);
+
     // Mark component as used so styles will be loaded
     use_component('rio-course-card');
     $defaults = [

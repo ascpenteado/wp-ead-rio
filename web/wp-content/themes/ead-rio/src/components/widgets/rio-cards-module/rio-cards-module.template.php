@@ -16,6 +16,20 @@ if (!defined('ABSPATH')) {
 
 // Include the course card component
 require_once get_stylesheet_directory() . '/src/components/molecules/rio-course-card.php';
+
+// Auto-register component styles when component loader is available
+if (!function_exists('get_component_loader')) {
+    require_once get_stylesheet_directory() . '/src/includes/component-loader.php';
+}
+
+// Register this widget's styles
+register_component('rio-cards-module', [
+    'style_path' => 'src/components/widgets/rio-cards-module/rio-cards-module.scss',
+    'dependencies' => []
+]);
+
+// Mark component as used so styles will be loaded
+use_component('rio-cards-module');
 ?>
 
 <div class="rio-cards-module">

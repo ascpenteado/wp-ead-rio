@@ -14,23 +14,23 @@ ddev start     # Start if not running
 
 ### Primary Development Workflow
 ```bash
-npm run dev          # Start development with hot reload (SASS watching + browser-sync)
-npm run build        # Production build (includes prebuild validation and postbuild fixes)
-npm run build:dev    # Development build with expanded CSS and source maps
+pnpm run dev          # Start development with hot reload (SASS watching + browser-sync)
+pnpm run build        # Production build (includes prebuild validation and postbuild fixes)
+pnpm run build:dev    # Development build with expanded CSS and source maps
 ```
 
 ### Code Quality
 ```bash
-npm run lint         # Run all linters (TypeScript + SCSS)
-npm run lint:fix     # Auto-fix linting issues
-npm run format       # Format all code with Prettier
+pnpm run lint         # Run all linters (TypeScript + SCSS)
+pnpm run lint:fix     # Auto-fix linting issues
+pnpm run format       # Format all code with Prettier
 ```
 
 ### Specific Build Tasks
 ```bash
-npm run build:ts     # Compile TypeScript only
-npm run build:css    # Compile SCSS only
-npm run fix:imports  # Fix ES6 module imports (adds .js extensions)
+pnpm run build:ts     # Compile TypeScript only
+pnpm run build:css    # Compile SCSS only
+pnpm run fix:imports  # Fix ES6 module imports (adds .js extensions)
 ```
 
 ## Architecture Overview
@@ -59,33 +59,55 @@ This is a WordPress theme with modern TypeScript/SCSS build system. The theme us
 ### Directory Structure Logic
 
 ```
-src/                    # TypeScript source files
-├── theme.ts           # Main theme entry point (singleton pattern)
-├── components/        # TypeScript component classes
-├── utils/             # Utility functions (DOM manipulation, etc.)
-└── types/             # TypeScript type definitions
+src/                        # ALL SOURCE CODE
+├── assets/                 # Global styles and assets
+│   └── styles/
+│       ├── main.scss       # Entry point (imports other files)
+│       ├── tokens.scss     # CSS custom properties/variables
+│       ├── site-header.scss # Header component styles
+│       └── pages/          # Page-specific styles
+├── components/             # Co-located component files (PHP + SCSS + TS)
+│   ├── widgets/           # Elementor widgets
+│   │   └── widget-name/
+│   │       ├── widget-name-widget.php      # PHP widget class
+│   │       ├── widget-name-config.php      # Widget configuration
+│   │       ├── widget-name.template.php    # Template file
+│   │       ├── widget-name.scss           # Widget styles
+│   │       └── widget-name.ts             # Widget TypeScript (optional)
+│   ├── molecules/         # Reusable PHP/SCSS components
+│   └── base-component.ts  # Base TypeScript component class
+├── includes/              # WordPress/PHP includes
+│   ├── widgets/           # Widget infrastructure
+│   │   ├── abstracts/     # Base widget class
+│   │   └── controls/      # Control builder system
+│   └── component-loader.php # Auto-loads widget styles
+├── php/                   # Theme PHP logic (modular)
+│   ├── theme-setup.php    # Theme setup and configuration
+│   ├── enqueue.php        # Scripts and styles enqueuing
+│   ├── widgets.php        # Widget and sidebar registration
+│   ├── elementor.php      # Elementor integration
+│   ├── post-types.php     # Custom post types
+│   └── filters.php        # Theme filters and customizations
+├── templates/             # WordPress template files
+│   ├── header.php         # Header template
+│   ├── footer.php         # Footer template
+│   ├── index.php          # Main template
+│   ├── page.php           # Page template
+│   ├── single-curso.php   # Single course template
+│   └── sidebar.php        # Sidebar template
+├── types/                 # TypeScript type definitions
+├── utils/                 # Utility functions (DOM manipulation, etc.)
+└── theme.ts              # Main theme entry point (singleton pattern)
 
-components/            # Co-located component files (PHP + SCSS + TS)
-├── widgets/          # Elementor widgets
-│   └── widget-name/
-│       ├── widget-name-widget.php      # PHP widget class
-│       ├── widget-name-config.php      # Widget configuration
-│       ├── widget-name.template.php    # Template file
-│       ├── widget-name.scss           # Widget styles
-│       └── widget-name.ts             # Widget TypeScript (optional)
-└── molecules/        # Reusable PHP/SCSS components
-
-includes/             # WordPress/PHP includes
-├── widgets/          # Widget infrastructure
-│   ├── abstracts/    # Base widget class
-│   └── controls/     # Control builder system
-└── component-loader.php  # Auto-loads widget styles
-
-assets/styles/        # Global SCSS
-├── main.scss         # Entry point (imports other files)
-├── tokens.scss       # CSS custom properties/variables
-├── site-header.scss  # Header component styles
-└── pages/           # Page-specific styles
+# ROOT LEVEL (WordPress requirements + config)
+├── functions.php          # Minimal proxy to src/php/ modules
+├── index.php             # Minimal proxy to src/templates/index.php
+├── header.php            # Minimal proxy to src/templates/header.php
+├── [other templates].php # Minimal proxies to src/templates/
+├── style.css             # WordPress-required theme file (auto-generated)
+├── package.json          # Build system configuration
+├── tsconfig.json         # TypeScript configuration
+└── [other config files]  # ESLint, Prettier, etc.
 ```
 
 ## WordPress Integration Specifics

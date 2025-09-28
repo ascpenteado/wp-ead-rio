@@ -1,15 +1,8 @@
 <?php
 /**
- * The sidebar containing the main widget area
+ * The sidebar template - Proxy to src/templates/
  *
  * @package EAD_Rio
  */
 
-if (!is_active_sidebar('sidebar-1')) {
-    return;
-}
-?>
-
-<aside id="secondary" class="widget-area">
-    <?php dynamic_sidebar('sidebar-1'); ?>
-</aside><!-- #secondary -->
+require_once __DIR__ . '/src/templates/sidebar.php';

@@ -25,7 +25,6 @@
                 <div class="footer-content">
                     <div class="footer-text">
                         <p>
-                            CNPJ: 00.000.000/0000-00<br>
                             © <?php echo date('Y'); ?> EAD Rio - Todos os direitos reservados.
                         </p>
                     </div>

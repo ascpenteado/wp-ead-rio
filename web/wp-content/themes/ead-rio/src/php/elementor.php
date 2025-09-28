@@ -13,13 +13,20 @@ if (!defined('ABSPATH')) {
  * Add custom widget categories
  */
 function ead_rio_add_elementor_widget_categories($elements_manager) {
-    $elements_manager->add_category(
-        'ead-rio-widgets',
-        [
-            'title' => __('EAD Rio - Widgets', 'ead-rio'),
-            'icon' => 'fa fa-plug',
-        ]
-    );
+    $categories = [];
+    $categories['ead-rio-widgets'] = [
+        'title' => __('EAD Rio - Widgets', 'ead-rio'),
+        'icon' => 'fa fa-plug',
+    ];
+
+    $old_categories = $elements_manager->get_categories();
+    $categories = array_merge($categories, $old_categories);
+
+    $set_categories = function ($categories) {
+        $this->categories = $categories;
+    };
+
+    $set_categories->call($elements_manager, $categories);
 }
 
 /**
@@ -31,6 +38,14 @@ function ead_rio_register_elementor_widgets($widgets_manager) {
         require_once($cards_widget_path);
         if (class_exists('Rio_Cards_Module_Widget')) {
             $widgets_manager->register(new \Rio_Cards_Module_Widget());
+        }
+    }
+
+    $button_widget_path = get_stylesheet_directory() . '/src/components/widgets/rio-button/rio-button-widget.php';
+    if (file_exists($button_widget_path)) {
+        require_once($button_widget_path);
+        if (class_exists('Rio_Button_Widget')) {
+            $widgets_manager->register(new \Rio_Button_Widget());
         }
     }
 }

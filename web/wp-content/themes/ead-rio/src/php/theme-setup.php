@@ -52,15 +52,19 @@ function ead_rio_theme_setup() {
 add_action('after_setup_theme', 'ead_rio_theme_setup');
 
 /**
- * Include component loader for automatic style loading
+ * Initialize unified component system (PHP auto-loading + style management)
  */
-function ead_rio_load_component_loader() {
+function ead_rio_init_components() {
     $component_loader_path = get_template_directory() . '/src/includes/component-loader.php';
     if (file_exists($component_loader_path)) {
         require_once $component_loader_path;
+
+        // Initialize the unified component loader
+        // This handles both PHP auto-loading and style management
+        get_component_loader();
     }
 }
-add_action('after_setup_theme', 'ead_rio_load_component_loader');
+add_action('after_setup_theme', 'ead_rio_init_components', 5);
 
 /**
  * Disable WordPress admin bar for all users except administrators

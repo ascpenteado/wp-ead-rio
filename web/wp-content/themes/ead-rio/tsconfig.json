@@ -33,13 +33,11 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*.ts",
-    "components/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist/**/*",
-    "assets/**/*",
     "**/*.d.ts"
   ]
 }

@@ -87,7 +87,7 @@ abstract class Base_Widget extends \Elementor\Widget_Base {
         }
 
         // Load control builder
-        require_once get_stylesheet_directory() . '/includes/widgets/controls/control-builder.php';
+        require_once get_stylesheet_directory() . '/src/includes/widgets/controls/control-builder.php';
         $control_builder = new Control_Builder($this);
 
         foreach ($this->widget_config['controls'] as $section_id => $section_config) {

@@ -6,12 +6,12 @@ if (!defined('ABSPATH')) {
 
 // Auto-register component styles
 if (!function_exists('get_component_loader')) {
-    require_once get_stylesheet_directory() . '/includes/component-loader.php';
+    require_once get_stylesheet_directory() . '/src/includes/component-loader.php';
 }
 
 // Register this component's styles
 register_component('course-card', [
-    'style_path' => 'components/molecules/course-card.scss',
+    'style_path' => 'src/components/molecules/course-card.scss',
     'dependencies' => []
 ]);
 

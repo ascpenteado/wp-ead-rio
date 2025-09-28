@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Load base widget class
-require_once get_stylesheet_directory() . '/includes/widgets/abstracts/base-widget.php';
+require_once get_stylesheet_directory() . '/src/includes/widgets/abstracts/base-widget.php';
 
 class Cards_Module_Widget extends Base_Widget {
 

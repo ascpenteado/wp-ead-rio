@@ -55,7 +55,7 @@ add_action('after_setup_theme', 'ead_rio_theme_setup');
  * Include component loader for automatic style loading
  */
 function ead_rio_load_component_loader() {
-    $component_loader_path = get_template_directory() . '/includes/component-loader.php';
+    $component_loader_path = get_template_directory() . '/src/includes/component-loader.php';
     if (file_exists($component_loader_path)) {
         require_once $component_loader_path;
     }
@@ -142,7 +142,7 @@ add_action('wp_enqueue_scripts', 'ead_rio_register_widget_styles');
  * Register Custom Elementor Widgets (if Elementor is active)
  */
 function ead_rio_register_elementor_widgets($widgets_manager) {
-    $cards_widget_path = get_stylesheet_directory() . '/components/widgets/cards-module/cards-module-widget.php';
+    $cards_widget_path = get_stylesheet_directory() . '/src/components/widgets/cards-module/cards-module-widget.php';
     if (file_exists($cards_widget_path)) {
         require_once($cards_widget_path);
         if (class_exists('Cards_Module_Widget')) {

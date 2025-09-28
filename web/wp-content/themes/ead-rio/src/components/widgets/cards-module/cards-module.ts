@@ -1,5 +1,5 @@
-import { BaseComponent } from '../../../src/components/base-component';
-import { ready } from '../../../src/utils/dom-utils';
+import { BaseComponent } from '../../base-component';
+import { ready } from '../../../utils/dom-utils';
 
 export class CardsModule extends BaseComponent {
     constructor(element: HTMLElement) {

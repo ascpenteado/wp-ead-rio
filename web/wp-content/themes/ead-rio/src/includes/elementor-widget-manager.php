@@ -183,7 +183,7 @@ class EAD_Rio_Elementor_Widget_Manager {
     public function enqueue_editor_styles() {
         wp_enqueue_style(
             'ead-rio-elementor-editor',
-            get_template_directory_uri() . '/assets/css/elementor-editor.css',
+            get_template_directory_uri() . '/src/assets/css/elementor-editor.css',
             [],
             wp_get_theme()->get('Version')
         );
@@ -198,7 +198,7 @@ class EAD_Rio_Elementor_Widget_Manager {
         // Convert SCSS to CSS path if needed
         if (strpos($src, '.scss') !== false) {
             $src = str_replace('.scss', '.css', $src);
-            $src = str_replace('/widgets/', '/assets/css/widgets/', $src);
+            $src = str_replace('/widgets/', '/src/assets/css/widgets/', $src);
         }
 
         wp_enqueue_style(

@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Include the course card component
-require_once get_stylesheet_directory() . '/components/molecules/course-card.php';
+require_once get_stylesheet_directory() . '/src/components/molecules/course-card.php';
 ?>
 
 <div class="cards-module">

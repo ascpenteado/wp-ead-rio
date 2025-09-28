@@ -1,6 +1,7 @@
 # DDEV
 .ddev/
 .playwright-mcp/
+up.sh
 
 # WordPress core
 web/*

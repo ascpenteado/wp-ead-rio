@@ -23,35 +23,44 @@
 <div id="page" class="site">
     <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'ead-rio'); ?></a>
 
-    <header id="masthead" class="site-header">
-        <div class="container">
-            <div class="site-branding"><?php the_custom_logo(); ?></div>
+    <header id="masthead" class="header">
+        <div class="header__container">
+            <div class="header__branding">
+                <?php the_custom_logo(); ?>
+            </div>
 
-            <nav id="site-navigation" class="main-navigation">
-                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-                    <?php esc_html_e('Primary Menu', 'ead-rio'); ?>
-                </button>
+            
+            <nav id="site-navigation" class="header__navigation">
                 <?php
                 wp_nav_menu(
                     array(
                         'theme_location' => 'primary',
                         'menu_id'        => 'primary-menu',
                         'container'      => false,
-                        'menu_class'     => 'nav-menu',
+                        'menu_class'     => 'header__nav-menu',
                     )
                 );
                 ?>
             </nav>
 
-            <?php
+            <div class="header__menu-toggle-wrapper">
+                <?php
             // Render CTA button (auto-loaded globally)
             rio_button([
                 'text' => 'Matricule-se',
-                'url' => '/matricula',
+                'url' => '#quero-bolsa',
                 'variant' => 'primary',
-                'size' => 'medium'
+                'size' => 'medium',
+                'classes' => 'header__cta-button'
             ]);
             ?>
+
+                <button class="header__menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+                    <span class="header__menu-toggle-text"><?php esc_html_e('Primary Menu', 'ead-rio'); ?></span>
+                </button>
+            
+            </div>
+
         </div>
     </header>
 

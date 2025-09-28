@@ -5,6 +5,7 @@
 
 import { ready } from './utils/dom-utils';
 import { initButtons } from './components/atoms/rio-button/button';
+import { initHeader } from './templates/header/header';
 
 /**
  * Theme initialization
@@ -40,6 +41,13 @@ class EadRioTheme {
    * Initialize theme components
    */
   private initComponents(): void {
+    // Initialize header component
+    const header = initHeader();
+    if (header) {
+      // Store header instance globally for external access
+      window.EadRioHeader = header;
+    }
+
     // Initialize button components
     initButtons();
 

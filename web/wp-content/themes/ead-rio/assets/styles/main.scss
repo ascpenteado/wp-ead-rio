@@ -10,6 +10,9 @@ Version: 1.0.0
 // Use component overrides
 @use 'overrides';
 
+// Component styles
+@use 'site-header';
+
 // Page-specific styles
 @use 'pages/single-curso';
 

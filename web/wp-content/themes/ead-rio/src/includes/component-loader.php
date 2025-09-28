@@ -5,9 +5,9 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Component Loader - Automatic style and script loading for components
+ * Component Loader - Unified component system for PHP auto-loading and style management
  *
- * This class provides automatic loading of component styles and scripts
+ * This class provides automatic loading of component PHP files, styles and scripts
  * when components are rendered, similar to tree shaking in modern build tools.
  */
 class Component_Loader {
@@ -16,6 +16,8 @@ class Component_Loader {
     private $loaded_components = [];
     private $component_styles = [];
     private $component_scripts = [];
+    private $component_php_files = [];
+    private $php_components_loaded = false;
 
     /**
      * Get singleton instance
@@ -30,6 +32,9 @@ class Component_Loader {
     private function __construct() {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_component_assets'], 20);
         add_action('wp_footer', [$this, 'output_inline_styles'], 5);
+
+        // Auto-discover and load all PHP components
+        $this->auto_load_php_components();
     }
 
     /**
@@ -204,6 +209,85 @@ class Component_Loader {
      */
     public function clear_loaded_components() {
         $this->loaded_components = [];
+    }
+
+    /**
+     * Auto-discover and load all PHP components
+     */
+    private function auto_load_php_components() {
+        if ($this->php_components_loaded) {
+            return;
+        }
+
+        $theme_dir = get_stylesheet_directory();
+        $components_base = $theme_dir . '/src/components';
+
+        if (!is_dir($components_base)) {
+            return;
+        }
+
+        $component_types = ['atoms', 'molecules'];
+
+        foreach ($component_types as $type) {
+            $type_dir = $components_base . '/' . $type;
+
+            if (!is_dir($type_dir)) {
+                continue;
+            }
+
+            // Get all component directories
+            $component_dirs = glob($type_dir . '/*', GLOB_ONLYDIR);
+
+            foreach ($component_dirs as $component_dir) {
+                $this->load_component_from_directory($component_dir);
+            }
+        }
+
+        $this->php_components_loaded = true;
+    }
+
+    /**
+     * Load a component from its directory
+     */
+    private function load_component_from_directory($component_dir) {
+        $component_name = basename($component_dir);
+
+        // Look for the main PHP file
+        $possible_files = [
+            $component_dir . '/' . $component_name . '.php',
+            $component_dir . '/' . str_replace('rio-', '', $component_name) . '.php',
+        ];
+
+        // Also check all PHP files in the directory
+        $php_files = glob($component_dir . '/*.php');
+        foreach ($php_files as $php_file) {
+            $filename = basename($php_file, '.php');
+
+            // Skip config, widget, and template files
+            if (strpos($filename, '-config') !== false ||
+                strpos($filename, '-widget') !== false ||
+                strpos($filename, 'template') !== false) {
+                continue;
+            }
+
+            $possible_files[] = $php_file;
+        }
+
+        // Load the first valid file found
+        foreach ($possible_files as $file) {
+            if (file_exists($file)) {
+                require_once $file;
+                $this->component_php_files[$component_name] = $file;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Get list of loaded PHP component files
+     */
+    public function get_loaded_php_components() {
+        return $this->component_php_files;
     }
 }
 

@@ -289,6 +289,7 @@ class Component_Loader {
     public function get_loaded_php_components() {
         return $this->component_php_files;
     }
+
 }
 
 /**

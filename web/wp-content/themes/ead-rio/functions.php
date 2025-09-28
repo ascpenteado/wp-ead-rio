@@ -14,5 +14,3 @@ require_once __DIR__ . '/src/php/theme-setup.php';
 require_once __DIR__ . '/src/php/enqueue.php';
 require_once __DIR__ . '/src/php/widgets.php';
 require_once __DIR__ . '/src/php/elementor.php';
-require_once __DIR__ . '/src/php/post-types.php';
-require_once __DIR__ . '/src/php/filters.php';

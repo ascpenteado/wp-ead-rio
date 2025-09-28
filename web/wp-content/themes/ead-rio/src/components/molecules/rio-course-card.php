@@ -10,8 +10,8 @@ if (!function_exists('get_component_loader')) {
 }
 
 // Register this component's styles
-register_component('course-card', [
-    'style_path' => 'src/components/molecules/course-card.scss',
+register_component('rio-course-card', [
+    'style_path' => 'src/components/molecules/rio-course-card.scss',
     'dependencies' => []
 ]);
 
@@ -26,9 +26,9 @@ register_component('course-card', [
  *     @type bool   $show_course_degree      Whether to show course degree
  * }
  */
-function render_course_card($args = []) {
+function rio_course_card($args = []) {
     // Mark component as used so styles will be loaded
-    use_component('course-card');
+    use_component('rio-course-card');
     $defaults = [
         'post_id' => get_the_ID(),
         'show_short_description' => true,

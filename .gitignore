@@ -1,5 +1,6 @@
 # DDEV
 .ddev/
+.playwright-mcp/
 
 # WordPress core
 web/*

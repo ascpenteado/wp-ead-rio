@@ -44,10 +44,7 @@
             </nav>
 
             <?php
-            // Include button component
-            require_once get_stylesheet_directory() . '/src/components/atoms/rio-button/button.php';
-
-            // Render CTA button
+            // Render CTA button (auto-loaded globally)
             rio_button([
                 'text' => 'Matricule-se',
                 'url' => '/matricula',

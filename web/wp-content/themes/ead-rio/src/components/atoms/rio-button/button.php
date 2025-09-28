@@ -9,16 +9,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Auto-register component styles
+// Auto-register component styles when component loader is available
 if (!function_exists('get_component_loader')) {
     require_once get_stylesheet_directory() . '/src/includes/component-loader.php';
 }
-
-// Register this component's styles
-register_component('rio-button', [
-    'style_path' => 'src/components/atoms/rio-button/button.scss',
-    'dependencies' => []
-]);
 
 /**
  * Button Component
@@ -34,6 +28,12 @@ register_component('rio-button', [
  * }
  */
 function rio_button($args = []) {
+    // Register this component's styles
+    register_component('rio-button', [
+        'style_path' => 'src/components/atoms/rio-button/button.scss',
+        'dependencies' => []
+    ]);
+
     // Mark component as used so styles will be loaded
     use_component('rio-button');
 

@@ -5,18 +5,18 @@ if (!defined('ABSPATH')) {
 }
 
 return [
-    'name' => 'listagem_cursos',
+    'name' => 'rio_cards_module',
     'title' => __('Listagem de Cursos', 'ead-rio'),
     'description' => __('Display courses in a beautiful card layout with customizable options', 'ead-rio'),
     'icon' => 'eicon-posts-grid',
-    'category' => 'general',
+    'category' => 'ead-rio-widgets',
     'keywords' => ['cursos', 'courses', 'grid', 'list', 'ead rio'],
     'version' => '1.0.0',
     'dependencies' => [
         'elementor' => '3.0.0',
     ],
-    'style_dependencies' => ['cards-module-widget'],
-    'template' => 'cards-module.template.php',
+    'style_dependencies' => ['rio-cards-module-widget'],
+    'template' => 'rio-cards-module.template.php',
     'features' => [
         'responsive' => true,
         'customizable_layout' => true,

@@ -15,13 +15,13 @@ if (!defined('ABSPATH')) {
 }
 
 // Include the course card component
-require_once get_stylesheet_directory() . '/src/components/molecules/course-card.php';
+require_once get_stylesheet_directory() . '/src/components/molecules/rio-course-card.php';
 ?>
 
 <div class="cards-module">
     <div class="cards-module__grid cards-module__grid--columns-<?php echo esc_attr($columns); ?>">
         <?php while ($posts->have_posts()) : $posts->the_post();
-            render_course_card([
+            rio_course_card([
                 'post_id' => get_the_ID(),
                 'show_short_description' => 'yes' === $settings['show_short_description'],
                 'show_instituicao' => 'yes' === $settings['show_instituicao'],

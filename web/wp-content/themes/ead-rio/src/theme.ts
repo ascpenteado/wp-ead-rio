@@ -4,6 +4,7 @@
  */
 
 import { ready } from './utils/dom-utils';
+import { initButtons } from './components/atoms/rio-button/button';
 
 /**
  * Theme initialization
@@ -40,7 +41,9 @@ class EadRioTheme {
    * Initialize theme components
    */
   private initComponents(): void {
-    // Components are auto-initialized via their respective imports
+    // Initialize button components
+    initButtons();
+
     // Add more component initializations here as needed
   }
 

@@ -7,13 +7,13 @@ if (!defined('ABSPATH')) {
 // Load base widget class
 require_once get_stylesheet_directory() . '/src/includes/widgets/abstracts/base-widget.php';
 
-class Cards_Module_Widget extends Base_Widget {
+class Rio_Cards_Module_Widget extends Base_Widget {
 
     /**
      * Get widget configuration
      */
     protected function get_widget_config() {
-        return require __DIR__ . '/cards-module-config.php';
+        return require __DIR__ . '/rio-cards-module-config.php';
     }
 
     /**

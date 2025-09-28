@@ -69,11 +69,7 @@
       a {
         color: var(--color-primary, #710686);
         text-decoration: none;
-        background: linear-gradient(
-          135deg,
-          var(--color-primary, #710686) 0%,
-          var(--color-secondary, #ffaa06) 100%
-        );
+        background: linear-gradient(135deg, var(--color-primary, #710686) 0%, var(--color-secondary, #ffaa06) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -168,25 +164,22 @@
           }
 
           // Hover effect
-          &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-              135deg,
-              var(--color-primary, #710686) 0%,
-              var(--color-secondary, #ffaa06) 100%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 8px;
-          }
+          // &::before {
+          //   content: '';
+          //   position: absolute;
+          //   top: 0;
+          //   left: 0;
+          //   right: 0;
+          //   bottom: 0;
+          //   background: var(--color-primary, #710686);
+          //   opacity: 0;
+          //   transition: opacity 0.3s ease;
+          //   border-radius: 8px;
+          // }
 
           &:hover {
             color: white;
+            background-color: var(--color-primary, #710686);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(113, 6, 134, 0.3);
 
@@ -203,11 +196,7 @@
           // Active state
           &.current-menu-item,
           &.current_page_item {
-            background: linear-gradient(
-              135deg,
-              var(--color-primary, #710686) 0%,
-              var(--color-secondary, #ffaa06) 100%
-            );
+            background: linear-gradient(135deg, var(--color-primary, #710686) 0%, var(--color-secondary, #ffaa06) 100%);
             color: white;
             box-shadow: 0 2px 8px rgba(113, 6, 134, 0.3);
 
@@ -333,11 +322,7 @@
     // Hide button text, show as middle line
     font-size: 0;
     color: transparent;
-    background-image: linear-gradient(
-      to right,
-      var(--color-primary, #710686),
-      var(--color-primary, #710686)
-    );
+    background-image: linear-gradient(to right, var(--color-primary, #710686), var(--color-primary, #710686));
     background-size: 24px 2px;
     background-repeat: no-repeat;
     background-position: center;

@@ -42,6 +42,19 @@
                 );
                 ?>
             </nav>
+
+            <?php
+            // Include button component
+            require_once get_stylesheet_directory() . '/src/components/atoms/rio-button/button.php';
+
+            // Render CTA button
+            rio_button([
+                'text' => 'Matricule-se',
+                'url' => '/matricula',
+                'variant' => 'primary',
+                'size' => 'medium'
+            ]);
+            ?>
         </div>
     </header>
 

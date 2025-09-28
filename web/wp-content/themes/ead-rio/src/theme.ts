@@ -33,7 +33,6 @@ class EadRioTheme {
     ready(() => {
       this.initComponents();
       this.bindGlobalEvents();
-      console.log('EAD Rio Theme initialized with TypeScript 🚀');
     });
   }
 
@@ -63,8 +62,8 @@ class EadRioTheme {
   private initSmoothScrolling(): void {
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
-    anchorLinks.forEach((link) => {
-      link.addEventListener('click', (event) => {
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', event => {
         const href = (link as HTMLAnchorElement).getAttribute('href');
 
         if (href && href !== '#' && href !== '#primary') {

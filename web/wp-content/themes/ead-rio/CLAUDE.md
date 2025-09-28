@@ -67,6 +67,11 @@ src/                        # ALL SOURCE CODE
 │       ├── site-header.scss # Header component styles
 │       └── pages/          # Page-specific styles
 ├── components/             # Co-located component files (PHP + SCSS + TS)
+│   ├── atoms/             # Atomic design components (buttons, inputs, etc.)
+│   │   └── button/        # Reusable button component
+│   │       ├── button.php   # PHP component function
+│   │       ├── button.scss  # Button styles
+│   │       └── button.ts    # Button interactions
 │   ├── widgets/           # Elementor widgets
 │   │   └── widget-name/
 │   │       ├── widget-name-widget.php      # PHP widget class
@@ -147,3 +152,44 @@ The `postbuild` script automatically fixes TypeScript's ES6 imports by adding `.
 7. Run build to compile styles
 
 The widget system automatically handles Elementor registration, control building, and conditional style loading based on configuration.
+
+## Component Development Pattern
+
+### Button Component Usage
+
+The theme includes a reusable button atom component that follows atomic design principles:
+
+```php
+// Basic usage
+render_button([
+    'text' => 'Matricule-se',
+    'url' => '/matricula',
+    'variant' => 'primary'
+]);
+
+// Advanced usage with JavaScript interactions
+render_button([
+    'text' => 'Submit Form',
+    'tag' => 'button',
+    'variant' => 'secondary',
+    'size' => 'large',
+    'attributes' => [
+        'data-button-options' => json_encode([
+            'disableOnClick' => true,
+            'loadingText' => 'Processing...'
+        ])
+    ]
+]);
+```
+
+**Available Options:**
+- `variant`: 'primary', 'secondary', 'outline'
+- `size`: 'small', 'medium', 'large'
+- `tag`: 'a', 'button'
+- `attributes`: Custom HTML attributes
+- `classes`: Additional CSS classes
+
+**TypeScript Integration:**
+- Auto-initializes buttons with `data-button-options` attribute
+- Supports loading states, confirmation dialogs, and disable-on-click
+- Component styles are conditionally loaded only when used

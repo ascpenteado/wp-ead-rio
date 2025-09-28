@@ -11,7 +11,7 @@ Version: 1.0.0
 @use 'abstracts/_overrides';
 
 // Component styles
-@use 'templates/_header';
+@use '../../templates/header/header';
 @use 'templates/_footer';
 
 // Page-specific styles

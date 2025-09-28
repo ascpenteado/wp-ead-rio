@@ -24,17 +24,10 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-text">
-                        <a href="<?php echo esc_url(__('https://wordpress.org/', 'ead-rio')); ?>">
-                            <?php
-                            /* translators: %s: CMS name, i.e. WordPress. */
-                            printf(esc_html__('Proudly powered by %s', 'ead-rio'), 'WordPress');
-                            ?>
-                        </a>
-                        <span class="sep"> | </span>
-                        <?php
-                        /* translators: 1: Theme name, 2: Theme author. */
-                        printf(esc_html__('Theme: %1$s by %2$s.', 'ead-rio'), 'EAD Rio', '<a href="#">EAD Rio Team</a>');
-                        ?>
+                        <p>
+                            CNPJ: 00.000.000/0000-00<br>
+                            © <?php echo date('Y'); ?> EAD Rio - Todos os direitos reservados.
+                        </p>
                     </div>
 
                     <?php if (has_nav_menu('footer')) : ?>

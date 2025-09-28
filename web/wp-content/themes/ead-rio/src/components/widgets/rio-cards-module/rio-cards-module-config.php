@@ -102,7 +102,7 @@ return [
                         'size' => 20,
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .cards-module__grid' => 'gap: {{SIZE}}{{UNIT}};',
+                        '{{WRAPPER}} .rio-cards-module__grid' => 'gap: {{SIZE}}{{UNIT}};',
                     ],
                 ],
                 'card_background' => [

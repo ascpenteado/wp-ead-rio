@@ -18,8 +18,8 @@ if (!defined('ABSPATH')) {
 require_once get_stylesheet_directory() . '/src/components/molecules/rio-course-card.php';
 ?>
 
-<div class="cards-module">
-    <div class="cards-module__grid cards-module__grid--columns-<?php echo esc_attr($columns); ?>">
+<div class="rio-cards-module">
+    <div class="rio-cards-module__grid rio-cards-module__grid--columns-<?php echo esc_attr($columns); ?>">
         <?php while ($posts->have_posts()) : $posts->the_post();
             rio_course_card([
                 'post_id' => get_the_ID(),

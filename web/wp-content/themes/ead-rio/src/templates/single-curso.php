@@ -159,14 +159,7 @@ get_header();
                 <div class="container">
                     <h2 class="cta-title">Interessado neste curso?</h2>
                     <p class="cta-subtitle">Solicite mais informações e garanta sua vaga!</p>
-
-                    <div class="cta-actions">
-                        <a href="#" class="btn-primary">Solicitar Informações</a>
-                        <a href="tel:+5521999999999" class="btn-secondary">
-                            <span class="phone-icon">📞</span>
-                            Ligar Agora
-                        </a>
-                    </div>
+                    <?php echo do_shortcode('[contact-form-7 id="4fbd2a5"]'); ?>
                 </div>
             </div>
         </article>

@@ -5,13 +5,14 @@ Version: 1.0.0
 */
 
 // Use tokens (CSS variables)
-@use 'tokens';
+@use 'abstracts/_tokens';
 
 // Use component overrides
-@use 'overrides';
+@use 'abstracts/_overrides';
 
 // Component styles
-@use 'header';
+@use 'templates/_header';
+@use 'templates/_footer';
 
 // Page-specific styles
 @use 'pages/_single-curso';

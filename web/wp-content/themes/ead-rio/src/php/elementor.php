@@ -41,7 +41,7 @@ function ead_rio_register_elementor_widgets($widgets_manager) {
         }
     }
 
-    $button_widget_path = get_stylesheet_directory() . '/src/components/widgets/rio-button/rio-button-widget.php';
+    $button_widget_path = get_stylesheet_directory() . '/src/components/atoms/rio-button/rio-button-widget.php';
     if (file_exists($button_widget_path)) {
         require_once($button_widget_path);
         if (class_exists('Rio_Button_Widget')) {

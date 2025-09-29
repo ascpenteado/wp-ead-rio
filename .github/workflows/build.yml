@@ -53,4 +53,6 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Output image tags
-      run: echo "Built and pushed image with tags: ${{ steps.meta.outputs.tags }}"
+      run: |
+        echo "Built and pushed image with tags:"
+        echo "${{ steps.meta.outputs.tags }}"

@@ -39,6 +39,7 @@ web/wp-content/w3tc-config/
 
 # Environment files
 .env
+.env.local
 *.log
 
 # OS files

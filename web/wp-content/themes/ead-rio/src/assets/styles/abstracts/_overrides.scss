@@ -1,12 +1,13 @@
 @use 'mixins' as *;
 
 /*
- * WPForms Complete Reset & Material Design Override
- * Resets all WPForms styles and applies consistent Material Design theming
+ * Contact Form 7 Complete Reset & Material Design Override
+ * Resets all Contact Form 7 styles and applies consistent Material Design theming
  */
 
-div.wpforms-container.wpforms-container {
-  // Complete reset of WPForms defaults
+// Contact Form 7 styling needs higher specificity to override default styles
+div.wpcf7 form.wpcf7-form {
+  // Complete reset of Contact Form 7 defaults
   all: unset;
   display: block;
 
@@ -65,14 +66,14 @@ div.wpforms-container.wpforms-container {
     display: none;
   }
 
-  // Field containers
-  div.wpforms-field {
+  // Field containers (CF7 uses paragraphs)
+  p {
     margin: 0 0 24px 0;
     position: relative;
   }
 
   // Labels with Material Design typography
-  .wpforms-field-label {
+  label {
     font-family: var(--headings-font-family);
     font-weight: 500;
     font-size: 14px;
@@ -81,24 +82,10 @@ div.wpforms-container.wpforms-container {
     margin-bottom: 8px;
     display: block;
     transition: color 0.2s ease;
-
-    // Required indicator
-    .wpforms-required-label {
-      color: #f44336;
-      margin-left: 2px;
-    }
   }
 
-  // Input fields with Material Design styling
-  input[type='text'],
-  input[type='email'],
-  input[type='tel'],
-  input[type='url'],
-  input[type='password'],
-  input[type='number'],
-  input[type='date'],
-  select,
-  textarea {
+  // Contact Form 7 input fields with Material Design styling
+  .wpcf7-form-control {
     width: 100%;
     padding: 16px;
     border: 2px solid #e0e0e0;
@@ -126,220 +113,99 @@ div.wpforms-container.wpforms-container {
       color: rgba(0, 0, 0, 0.6);
       font-style: italic;
     }
-  }
 
-  // Textarea specific
-  textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-
-  // Select dropdown
-  select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 12px center;
-    background-repeat: no-repeat;
-    background-size: 16px;
-    padding-right: 48px;
-  }
-
-  // Custom checkbox and radio styling
-  input[type='checkbox'],
-  input[type='radio'] {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 4px;
-    background: #ffffff;
-    margin-right: 12px;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    flex-shrink: 0;
-
-    &:hover {
-      border-color: var(--color-primary, #6200ea);
-      box-shadow: 0 2px 8px rgba(98, 0, 234, 0.1);
+    // Specific styling for different field types
+    &.wpcf7-text,
+    &.wpcf7-email,
+    &.wpcf7-tel,
+    &.wpcf7-url,
+    &.wpcf7-number,
+    &.wpcf7-date {
+      // Standard text inputs
     }
 
-    &:checked {
-      background: var(--color-primary, #6200ea);
-      border-color: var(--color-primary, #6200ea);
-      box-shadow: 0 2px 8px rgba(98, 0, 234, 0.3);
+    &.wpcf7-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
 
-      &::before {
-        content: '✓';
+    &.wpcf7-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+      padding-right: 48px;
+    }
+  }
+
+  // Contact Form 7 checkbox and radio styling
+  .wpcf7-checkbox,
+  .wpcf7-radio {
+    input[type='checkbox'],
+    input[type='radio'] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 4px;
+      background: #ffffff;
+      margin-right: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      flex-shrink: 0;
+
+      &:hover {
+        border-color: var(--color-primary, #6200ea);
+        box-shadow: 0 2px 8px rgba(98, 0, 234, 0.1);
+      }
+
+      &:checked {
+        background: var(--color-primary, #6200ea);
+        border-color: var(--color-primary, #6200ea);
+        box-shadow: 0 2px 8px rgba(98, 0, 234, 0.3);
+
+        &::before {
+          content: '✓';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 1;
+        }
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--color-primary, #6200ea);
+        box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.2);
+      }
+    }
+
+    // Radio buttons - make them circular
+    input[type='radio'] {
+      border-radius: 50%;
+
+      &:checked::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 1;
-      }
-    }
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary, #6200ea);
-      box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.2);
-    }
-  }
-
-  // Radio buttons - make them circular
-  input[type='radio'] {
-    border-radius: 50%;
-
-    &:checked::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-
-  // Choice fields - Reset all default styling first
-  .wpforms-field-checkbox,
-  .wpforms-field-radio {
-    // Reset fieldset completely
-    fieldset {
-      border: none !important;
-      outline: none !important;
-      padding: 0;
-      margin: 0;
-      min-width: 0;
-    }
-
-    // Reset choice containers
-    .wpforms-field-choices {
-      margin: 0;
-      padding: 0;
-    }
-
-    // Base label styling for all choice fields
-    .wpforms-field-label-inline {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-      cursor: pointer;
-      padding: 12px 16px;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-      background: #fafafa;
-      position: relative;
-      overflow: hidden;
-
-      &:hover {
-        background: #ffffff;
-        border-color: rgba(98, 0, 234, 0.2);
-        box-shadow: 0 2px 8px rgba(98, 0, 234, 0.1);
-        transform: translateY(-1px);
-      }
-
-      // Text styling
-      span {
-        color: rgba(0, 0, 0, 0.87);
-        font-size: 16px;
-        line-height: 1.5;
-        font-weight: 400;
-        transition: color 0.2s ease;
-      }
-
-      // When option is checked
-      input:checked + span {
-        color: var(--color-primary, #6200ea);
-        font-weight: 500;
-      }
-
-      // Focus state for keyboard navigation
-      &:focus-within {
-        border-color: var(--color-primary, #6200ea);
-        box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1);
       }
     }
   }
 
-  // Specific styling for inline checkbox layouts (wpforms-list-inline)
-  .wpforms-field-checkbox.wpforms-list-inline {
-    // Ensure fieldset has no border
-    fieldset {
-      border: none !important;
-      outline: none !important;
-    }
-
-    // Make list items display inline
-    ul {
-      display: flex !important;
-      flex-wrap: wrap !important;
-      gap: 15px !important;
-      list-style: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    li {
-      display: flex !important;
-      align-items: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      list-style: none !important;
-      width: auto !important;
-    }
-
-    // Override label styling for inline layout
-    .wpforms-field-label-inline {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0;
-      padding: 8px 12px;
-      border-radius: 20px;
-      background: #f5f5f5;
-      border: 2px solid transparent;
-
-      &:hover {
-        background: #ffffff;
-        border-color: var(--color-primary, #6200ea);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(98, 0, 234, 0.15);
-      }
-
-      input[type='checkbox'] {
-        margin-right: 8px !important;
-      }
-
-      // Checked state for inline items
-      &:has(input:checked) {
-        background: var(--color-primary, #6200ea);
-        border-color: var(--color-primary, #6200ea);
-        box-shadow: 0 4px 12px rgba(98, 0, 234, 0.3);
-
-        span {
-          color: white !important;
-        }
-
-        input[type='checkbox'] {
-          background: white;
-          border-color: white;
-
-          &::before {
-            color: var(--color-primary, #6200ea);
-          }
-        }
-      }
-    }
-  }
-
-  // Submit button with Material Design elevation
-  .wpforms-submit {
+  // Contact Form 7 submit button with Material Design elevation
+  .wpcf7-submit {
     @include button(var(--color-primary, #6200ea), #ffffff);
     padding: 16px 32px;
     font-size: 16px;
@@ -385,47 +251,70 @@ div.wpforms-container.wpforms-container {
     }
   }
 
-  // Error styling
-  .wpforms-error {
+  // Contact Form 7 validation errors
+  .wpcf7-not-valid {
     border-color: #f44336 !important;
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.15) !important;
   }
 
   // Error messages
-  .wpforms-field-error {
+  .wpcf7-not-valid-tip {
     color: #f44336;
     font-size: 12px;
     margin-top: 4px;
+    display: block;
   }
 
-  // Success state
-  .wpforms-confirmation-container-full {
-    background: linear-gradient(135deg, #4caf50, #81c784);
-    color: white;
-    padding: 24px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+  // Response messages container
+  .wpcf7-response-output {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 8px;
 
-    p {
-      font-size: 18px;
-      font-weight: 500;
-      margin: 0;
+    &.wpcf7-mail-sent-ok {
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+
+    &.wpcf7-validation-errors,
+    &.wpcf7-mail-sent-ng {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef5350;
     }
   }
 
-  // Loading state
-  .wpforms-submit-spinner {
+  // Loading state (CF7 spinner)
+  .wpcf7-spinner {
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-top: 2px solid white;
     border-radius: 50%;
     width: 20px;
     height: 20px;
-    animation: wpforms-spin 1s linear infinite;
+    animation: wpcf7-spin 1s linear infinite;
     display: inline-block;
     margin-left: 8px;
+    visibility: hidden;
+
+    &.wpcf7-display-none {
+      display: none;
+    }
   }
 
-  @keyframes wpforms-spin {
+  // Show spinner when form is submitting
+  &.submitting .wpcf7-spinner {
+    visibility: visible;
+  }
+
+  @keyframes wpcf7-spin {
     0% {
       transform: rotate(0deg);
     }

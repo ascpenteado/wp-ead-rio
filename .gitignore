@@ -2,6 +2,7 @@
 .ddev/
 .playwright-mcp/
 up.sh
+ai1wm-backups/
 
 # WordPress core
 web/*

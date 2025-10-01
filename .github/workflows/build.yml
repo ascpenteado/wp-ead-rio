@@ -71,7 +71,8 @@ jobs:
         host: ${{ secrets.DO_HOST }}
         username: ${{ secrets.DO_USERNAME }}
         key: ${{ secrets.DO_SSH_KEY }}
-        port: ${{ secrets.DO_PORT || '22' }}
+        port: ${{ secrets.DO_PORT }}
+        debug: true
         script: |
           # Set the Docker image with registry path
           export DOCKER_IMAGE="${{ env.REGISTRY }}/${{ secrets.DO_REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:latest"
@@ -133,7 +134,7 @@ jobs:
         host: ${{ secrets.DO_HOST }}
         username: ${{ secrets.DO_USERNAME }}
         key: ${{ secrets.DO_SSH_KEY }}
-        port: ${{ secrets.DO_PORT || '22' }}
+        port: ${{ secrets.DO_PORT }}
         script: |
           cd /opt/wp-ead-rio
           echo "Checking container status..."

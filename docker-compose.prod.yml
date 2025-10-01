@@ -14,8 +14,13 @@ services:
       WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
       WORDPRESS_DEBUG: ${WP_DEBUG:-false}
     volumes:
+      # PHP configuration for large uploads
+      - ./php-prod.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      # Preserve uploads and backups with proper permissions
       - wordpress_uploads:/var/www/html/wp-content/uploads
       - wordpress_ai1wm:/var/www/html/wp-content/ai1wm-backups
+      # Let WordPress manage plugins directory with proper permissions
+      - wordpress_plugins:/var/www/html/wp-content/plugins
     depends_on:
       - db
     networks:
@@ -54,6 +59,7 @@ volumes:
   db_data:
   wordpress_uploads:
   wordpress_ai1wm:
+  wordpress_plugins:
 
 networks:
   wp-network:

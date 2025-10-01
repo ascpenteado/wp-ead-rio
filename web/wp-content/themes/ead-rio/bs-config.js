@@ -1,5 +1,5 @@
 module.exports = {
-  proxy: "https://wp-ead-rio.ddev.site", // DDEV WordPress site URL
+  proxy: "http://localhost", // Docker Compose WordPress site URL
   files: [
     "dist/css/**/*.css",
     "dist/js/**/*.js",

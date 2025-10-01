@@ -4,10 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Environment Setup
 
-This is a WordPress theme running in DDEV. Always check that DDEV is running before development:
+This is a WordPress theme running in Docker Compose. Always check that Docker Compose is running before development:
 ```bash
-ddev describe  # Check DDEV status
-ddev start     # Start if not running
+# From project root
+pnpm run dev          # Start development environment
+docker-compose -f docker-compose.dev.yml ps  # Check status
 ```
 
 ## Essential Build Commands

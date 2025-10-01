@@ -1,1 +1,2 @@
 - use pnpm for this project instead of npm
+- remember that this project uses Digital Ocean

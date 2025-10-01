@@ -22,25 +22,33 @@ DO_PORT=22
    curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/wp-ead-rio/main/deploy.sh | bash
    ```
 
-2. **Edit environment variables:**
+2. **Download required configuration files:**
    ```bash
    cd /opt/wp-ead-rio
+   # Download docker-compose.prod.yml if not exists
+   curl -o docker-compose.prod.yml https://raw.githubusercontent.com/YOUR_USERNAME/wp-ead-rio/main/docker-compose.prod.yml
+   # Download PHP production configuration
+   curl -o php-prod.ini https://raw.githubusercontent.com/YOUR_USERNAME/wp-ead-rio/main/php-prod.ini
+   ```
+
+3. **Edit environment variables:**
+   ```bash
    nano .env  # Update database passwords and registry path
    ```
 
-3. **Login to DigitalOcean Container Registry:**
+4. **Login to DigitalOcean Container Registry:**
    ```bash
    docker login registry.digitalocean.com
    ```
 
-4. **Start the application:**
+5. **Start the application:**
    ```bash
    docker-compose -f docker-compose.prod.yml up -d
    ```
 
 ## Local Development vs Production
 
-- **Development**: Use DDEV (`ddev start`)
+- **Development**: Use Docker Compose (`pnpm run dev`)
 - **Production**: Uses official WordPress Docker image
 - **Assets**: Built during Docker image creation, included in `dist/` folder
 

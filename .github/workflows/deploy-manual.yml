@@ -37,6 +37,11 @@ jobs:
             curl -o docker-compose.prod.yml https://raw.githubusercontent.com/${{ github.repository }}/main/docker-compose.prod.yml
           fi
 
+          # Download PHP production configuration if it doesn't exist
+          if [ ! -f php-prod.ini ]; then
+            curl -o php-prod.ini https://raw.githubusercontent.com/${{ github.repository }}/main/php-prod.ini
+          fi
+
           # Create .env file if it doesn't exist
           if [ ! -f .env ]; then
             cat > .env << EOF

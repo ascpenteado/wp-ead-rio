@@ -1,0 +1,28 @@
+{
+  "name": "wp-ead-rio",
+  "version": "1.0.0",
+  "description": "WordPress EAD Rio project with Docker Compose",
+  "scripts": {
+    "dev": "docker-compose -f docker-compose.dev.yml --env-file .env.local up -d",
+    "dev:down": "docker-compose -f docker-compose.dev.yml down",
+    "dev:stop": "docker-compose -f docker-compose.dev.yml stop",
+    "dev:restart": "pnpm run dev:down && pnpm run dev",
+    "dev:logs": "docker-compose -f docker-compose.dev.yml logs -f",
+    "dev:logs:wp": "docker-compose -f docker-compose.dev.yml logs -f wordpress",
+    "dev:logs:db": "docker-compose -f docker-compose.dev.yml logs -f db",
+    "dev:shell": "docker-compose -f docker-compose.dev.yml exec wordpress bash",
+    "dev:db": "docker-compose -f docker-compose.dev.yml exec db mysql -u wp_user -p wp_ead_rio_dev",
+    "dev:build": "docker-compose -f docker-compose.dev.yml build",
+    "dev:clean": "docker-compose -f docker-compose.dev.yml down -v --remove-orphans",
+    "theme:dev": "cd web/wp-content/themes/ead-rio && pnpm run dev",
+    "theme:build": "cd web/wp-content/themes/ead-rio && pnpm run build",
+    "theme:watch": "cd web/wp-content/themes/ead-rio && pnpm run watch",
+    "prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "prod:down": "docker-compose -f docker-compose.prod.yml down",
+    "prod:logs": "docker-compose -f docker-compose.prod.yml logs -f",
+    "prod:build": "docker-compose -f docker-compose.prod.yml build"
+  },
+  "devDependencies": {},
+  "author": "EAD Rio",
+  "license": "ISC"
+}

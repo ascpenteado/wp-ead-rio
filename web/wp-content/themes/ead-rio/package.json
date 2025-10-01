@@ -17,7 +17,7 @@
     "build:validate": "test -f dist/js/src/theme.js && test -f dist/css/style.css && echo 'Build validation passed'",
     "fix:imports": "find dist/js -name '*.js' -type f -exec sed -i \"s/from '\\([^']*\\)';$/from '\\1.js';/g\" {} +",
     "dev": "pnpm run dev:check && concurrently \"pnpm run watch:ts\" \"pnpm run watch:css\" \"browser-sync start --config bs-config.js\"",
-    "dev:check": "command -v ddev >/dev/null 2>&1 && ddev describe >/dev/null 2>&1 || (echo 'DDEV is not running. Please start with: ddev start' && exit 1)",
+    "dev:check": "docker-compose -f ../../../docker-compose.dev.yml ps | grep -q 'Up' || (echo 'Docker Compose is not running. Please start with: pnpm run dev' && exit 1)",
     "serve": "browser-sync start --config bs-config.js",
     "watch": "concurrently \"pnpm run watch:ts\" \"pnpm run watch:css\"",
     "watch:css": "sass src/assets/styles/main.scss:dist/css/style.css src/components:dist/css/components --watch --style=expanded --source-map --load-path=src/assets/styles --load-path=src/templates",

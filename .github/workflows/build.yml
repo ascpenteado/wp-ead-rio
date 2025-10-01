@@ -6,6 +6,8 @@ on:
     paths:
       - 'web/**'
       - 'Dockerfile'
+      - 'docker-compose.prod.yml'
+      - 'php-prod.ini'
       - '.github/workflows/build.yml'
   workflow_dispatch:
 

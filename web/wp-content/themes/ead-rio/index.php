@@ -1,8 +1,8 @@
 <?php
 /**
- * The main template file - Proxy to src/templates/
+ * The main template file - Proxy to dist/templates/
  *
  * @package EAD_Rio
  */
 
-require_once __DIR__ . '/src/templates/index.php';
+require_once __DIR__ . '/dist/templates/index.php';

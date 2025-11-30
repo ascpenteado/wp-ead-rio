@@ -6,7 +6,8 @@
   "scripts": {
     "build": "pnpm run prebuild && pnpm run build:prod && pnpm run postbuild",
     "build:dev": "pnpm run prebuild && pnpm run build:ts:dev && pnpm run build:css:dev",
-    "build:prod": "pnpm run build:ts && pnpm run build:css",
+    "build:prod": "pnpm run build:ts && pnpm run build:css && pnpm run build:php",
+    "build:php": "mkdir -p dist/php dist/includes dist/templates && cp -r src/php/* dist/php/ && cp -r src/includes/* dist/includes/ && cp -r src/templates/* dist/templates/",
     "build:css": "sass src/assets/styles/main.scss:dist/css/style.css src/components:dist/css/components --style=compressed --source-map --load-path=src/assets/styles --load-path=src/templates",
     "build:css:dev": "sass src/assets/styles/main.scss:dist/css/style.css src/components:dist/css/components --style=expanded --source-map --load-path=src/assets/styles --load-path=src/templates",
     "build:ts": "tsc",

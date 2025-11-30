@@ -32,6 +32,9 @@ Railway terminates SSL at the load balancer. To prevent infinite redirect loops,
 
 - `WORDPRESS_CONFIG_EXTRA`:
   ```php
+  define('DOMAIN_CURRENT_SITE','${{RAILWAY_PUBLIC_DOMAIN}}');
+  define('WP_HOME','https://${{RAILWAY_PUBLIC_DOMAIN}}');
+  define('WP_SITEURL','https://${{RAILWAY_PUBLIC_DOMAIN}}');
   if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) { $_SERVER['HTTPS'] = 'on'; }
   ```
   _Note: Copy the entire PHP snippet above into the value field._

@@ -55,7 +55,7 @@ add_action('after_setup_theme', 'ead_rio_theme_setup');
  * Initialize unified component system (PHP auto-loading + style management)
  */
 function ead_rio_init_components() {
-    $component_loader_path = get_template_directory() . '/src/includes/component-loader.php';
+    $component_loader_path = get_template_directory() . '/dist/includes/component-loader.php';
     if (file_exists($component_loader_path)) {
         require_once $component_loader_path;
 

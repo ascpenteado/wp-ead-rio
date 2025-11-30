@@ -1,0 +1,30 @@
+# Development Tools
+.ddev/
+.playwright-mcp/
+.claude/
+.git/
+.github/
+.idea/
+.vscode/
+node_modules/
+dist/
+build/
+
+# Environment files
+.env
+.env.*
+! .env.example
+
+# Deployment scripts
+deploy.sh
+README-DEPLOYMENT.md
+docker-compose.*.yml
+
+# WordPress specific
+web/wp-config.php
+web/wp-content/uploads/
+web/wp-content/upgrade/
+web/wp-content/backup-db/
+web/wp-content/backups/
+web/wp-content/cache/
+web/wp-content/w3tc-config/

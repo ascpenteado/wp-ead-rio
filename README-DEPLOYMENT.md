@@ -19,16 +19,16 @@ DO_PORT=22
 
 1. **Run the setup script on your droplet:**
    ```bash
-   curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/wp-ead-rio/main/deploy.sh | bash
+   curl -sSL https://raw.githubusercontent.com/ascpenteado/wp-ead-rio/main/deploy.sh | bash
    ```
 
 2. **Download required configuration files:**
    ```bash
    cd /opt/wp-ead-rio
    # Download docker-compose.prod.yml if not exists
-   curl -o docker-compose.prod.yml https://raw.githubusercontent.com/YOUR_USERNAME/wp-ead-rio/main/docker-compose.prod.yml
+   curl -o docker-compose.prod.yml https://raw.githubusercontent.com/ascpenteado/wp-ead-rio/main/docker-compose.prod.yml
    # Download PHP production configuration
-   curl -o php-prod.ini https://raw.githubusercontent.com/YOUR_USERNAME/wp-ead-rio/main/php-prod.ini
+   curl -o php-prod.ini https://raw.githubusercontent.com/ascpenteado/wp-ead-rio/main/php-prod.ini
    ```
 
 3. **Edit environment variables:**
